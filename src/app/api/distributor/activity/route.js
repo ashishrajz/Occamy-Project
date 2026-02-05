@@ -6,12 +6,19 @@ import cloudinary from "@/lib/cloudinary";
 import { reverseGeocode } from "@/lib/geocode";
 import { autoClosePreviousDay } from "@/lib/autoCloseDay";
 
+const VALID_PRODUCTS = [
+  "RAKSHAK",
+  "BOVI_BOOSTER",
+  "JODI_NO_1",
+  "BUCK_BOOSTER",
+];
 
 export async function POST(req) {
   const user = await getAuthUser(req);
   if (!user || user.role !== "DISTRIBUTOR") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
   await autoClosePreviousDay(user._id);
 
   const today = new Date().toISOString().split("T")[0];
@@ -28,8 +35,81 @@ export async function POST(req) {
   }
 
   const formData = await req.formData();
+  const type = formData.get("type");
 
-  // Upload images to Cloudinary
+  const meeting = formData.get("meeting")
+    ? JSON.parse(formData.get("meeting"))
+    : null;
+
+  const sample = formData.get("sample")
+    ? JSON.parse(formData.get("sample"))
+    : null;
+
+  const sale = formData.get("sale")
+    ? JSON.parse(formData.get("sale"))
+    : null;
+
+  /* ================= GEO ================= */
+  const lat = Number(formData.get("lat"));
+  const lng = Number(formData.get("lng"));
+
+  const geo = await reverseGeocode(lat, lng);
+  const geoData = geo
+    ? {
+        state: geo.state || "",
+        district: geo.district || "",
+        village: geo.village || "",
+      }
+    : {};
+
+  /* ================= VALIDATION ================= */
+
+  if (type.startsWith("MEETING")) {
+    if (!meeting?.personName || !meeting?.intent) {
+      return NextResponse.json(
+        { error: "Invalid meeting data" },
+        { status: 400 }
+      );
+    }
+
+    if (
+      meeting.meetingKind === "GROUP" &&
+      (!meeting.attendeeCount || meeting.attendeeCount <= 0)
+    ) {
+      return NextResponse.json(
+        { error: "Group meeting must have attendee count" },
+        { status: 400 }
+      );
+    }
+  }
+
+  if (type === "SAMPLE_DISTRIBUTION") {
+    if (
+      !sample?.productId ||
+      !VALID_PRODUCTS.includes(sample.productId)
+    ) {
+      return NextResponse.json(
+        { error: "Invalid or missing sample product" },
+        { status: 400 }
+      );
+    }
+  }
+
+  if (type === "SALE") {
+    if (
+      !sale?.productId ||
+      !VALID_PRODUCTS.includes(sale.productId) ||
+      !sale?.customerName ||
+      !sale?.customerCategory
+    ) {
+      return NextResponse.json(
+        { error: "Invalid sale data" },
+        { status: 400 }
+      );
+    }
+  }
+
+  /* ================= PHOTOS ================= */
   const photos = [];
   const files = formData.getAll("photos");
 
@@ -42,23 +122,23 @@ export async function POST(req) {
     photos.push(upload.secure_url);
   }
 
-
-  const lat = Number(formData.get("lat"));
-const lng = Number(formData.get("lng"));
-
-const geo = await reverseGeocode(lat, lng);
-
+  /* ================= CREATE ACTIVITY ================= */
   const activity = await Activity.create({
     distributor: user._id,
     day: day._id,
-    type: formData.get("type"),
+    type,
+
+    geo: geoData,
     location: { lat, lng },
     address: geo?.displayName || "Unknown location",
-    meeting: JSON.parse(formData.get("meeting") || "{}"),
-    sample: JSON.parse(formData.get("sample") || "{}"),
-    sale: JSON.parse(formData.get("sale") || "{}"),
-    odometerReading: formData.get("odometer"),
-    notes: formData.get("notes"),
+
+    meeting: type.startsWith("MEETING") ? meeting : undefined,
+    sample: type === "SAMPLE_DISTRIBUTION" ? sample : undefined,
+    sale: type === "SALE" ? sale : undefined,
+
+    odometerReading:
+      Number(formData.get("odometer")) || undefined,
+    notes: formData.get("notes") || "",
     photos,
   });
 

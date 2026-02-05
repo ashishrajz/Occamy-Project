@@ -92,22 +92,47 @@ export default function ActivityDetailPage() {
       )}
 
       {/* SALE DETAILS */}
-      {activity.sale && (
-        <Section title="Sale Details">
-          <Info label="Mode">
-            {activity.sale.mode}
-          </Info>
-          <Info label="Product">
-            {activity.sale.productName}
-          </Info>
-          <Info label="Quantity">
-            {activity.sale.quantity}
-          </Info>
-          <Info label="Repeat Order">
-            {activity.sale.isRepeatOrder ? "Yes" : "No"}
-          </Info>
-        </Section>
-      )}
+{activity.sale && (
+  <Section title="Sale Details">
+    <Info label="Customer Name">
+      {activity.sale.customerName}
+    </Info>
+
+    {activity.sale.customerCategory && (
+      <Info label="Customer Category">
+        {activity.sale.customerCategory}
+      </Info>
+    )}
+
+    <Info label="Mode">
+      {activity.sale.mode}
+    </Info>
+
+    <Info label="Product">
+      {activity.sale.productId}
+    </Info>
+
+    <Info label="Quantity">
+      {activity.sale.quantity}
+    </Info>
+
+    {"isFollowUpSale" in activity.sale && (
+      <Info label="Follow-up Sale">
+        {activity.sale.isFollowUpSale ? "Yes" : "No"}
+      </Info>
+    )}
+
+    <Info label="Repeat Order">
+      {activity.sale.isRepeatOrder ? "Yes" : "No"}
+    </Info>
+
+    {activity.sale.amount && (
+      <Info label="Amount (₹)">
+        ₹{activity.sale.amount}
+      </Info>
+    )}
+  </Section>
+)}
 
       {/* NOTES */}
       {activity.notes && (

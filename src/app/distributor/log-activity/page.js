@@ -1,61 +1,58 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
-const ACTIVITY_TYPES = {
-  MEETING_ONE_ON_ONE: "One-on-One Meeting",
-  MEETING_GROUP: "Group Meeting",
-  SAMPLE_DISTRIBUTION: "Sample Distribution",
-  SALE: "Sale",
-};
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { PRODUCTS } from "@/lib/constants/products";
 
 export default function LogActivityPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const presetType = searchParams.get("type");
 
   const [type, setType] = useState("");
+
   const [notes, setNotes] = useState("");
   const [odometer, setOdometer] = useState("");
   const [photos, setPhotos] = useState([]);
 
-  // Meeting
+  // ================= MEETING =================
   const [meeting, setMeeting] = useState({
     personName: "",
     category: "FARMER",
     contact: "",
-    village: "",
+    meetingKind: "ONE_ON_ONE", // ONE_ON_ONE | GROUP
     attendeeCount: "",
-    meetingType: "",
+    intent: "TRIAL",
     businessPotential: "",
   });
 
-  // Sample
+  // ================= SAMPLE =================
   const [sample, setSample] = useState({
-    productName: "",
+    productId: "",
     quantity: "",
     purpose: "TRIAL",
     givenTo: "",
   });
 
-  // Sale
+  // ================= SALE =================
   const [sale, setSale] = useState({
+    customerName: "",
+    customerCategory: "FARMER",
     mode: "B2C",
-    productName: "",
-    sku: "",
-    packSize: "",
+    productId: "",
     quantity: "",
-    viaDistributor: "",
+    isFollowUpSale: false,
     isRepeatOrder: false,
   });
 
-  async function handleSubmit() {
-    if (!type) {
-      alert("Select activity type");
-      return;
-    }
+  useEffect(() => {
+    if (presetType) setType(presetType);
+  }, [presetType]);
 
+  async function handleSubmit() {
     navigator.geolocation.getCurrentPosition(async pos => {
       const formData = new FormData();
+
       formData.append("type", type);
       formData.append("lat", pos.coords.latitude);
       formData.append("lng", pos.coords.longitude);
@@ -84,38 +81,34 @@ export default function LogActivityPage() {
         body: formData,
       });
 
-      alert("Activity logged successfully");
       router.push("/distributor");
     });
   }
 
   return (
     <div className="p-4 space-y-4">
-      <h1 className="text-xl font-semibold">Log Activity</h1>
-
-      {/* Activity Type */}
-      <select
-        className="w-full border p-2"
-        value={type}
-        onChange={e => setType(e.target.value)}
-      >
-        <option value="">Select Activity Type</option>
-        {Object.entries(ACTIVITY_TYPES).map(([key, label]) => (
-          <option key={key} value={key}>
-            {label}
-          </option>
-        ))}
-      </select>
+      <h1 className="text-xl font-semibold">
+        {type.replaceAll("_", " ")}
+      </h1>
 
       {/* ================= MEETING ================= */}
       {type.startsWith("MEETING") && (
         <div className="space-y-2">
           <input
-            placeholder="Person Name"
+            placeholder="Person / Group Name"
             className="w-full border p-2"
             value={meeting.personName}
             onChange={e =>
               setMeeting({ ...meeting, personName: e.target.value })
+            }
+          />
+
+          <input
+            placeholder="Contact Number (optional)"
+            className="w-full border p-2"
+            value={meeting.contact}
+            onChange={e =>
+              setMeeting({ ...meeting, contact: e.target.value })
             }
           />
 
@@ -131,39 +124,43 @@ export default function LogActivityPage() {
             <option value="INFLUENCER">Influencer</option>
           </select>
 
-          <input
-            placeholder="Contact (optional)"
+          <select
             className="w-full border p-2"
-            value={meeting.contact}
+            value={meeting.meetingKind}
             onChange={e =>
-              setMeeting({ ...meeting, contact: e.target.value })
+              setMeeting({ ...meeting, meetingKind: e.target.value })
             }
-          />
+          >
+            <option value="ONE_ON_ONE">One-on-One</option>
+            <option value="GROUP">Group</option>
+          </select>
 
-          {type === "MEETING_GROUP" && (
-            <>
-              <input
-                placeholder="Village"
-                className="w-full border p-2"
-                value={meeting.village}
-                onChange={e =>
-                  setMeeting({ ...meeting, village: e.target.value })
-                }
-              />
-              <input
-                placeholder="Number of Attendees"
-                type="number"
-                className="w-full border p-2"
-                value={meeting.attendeeCount}
-                onChange={e =>
-                  setMeeting({
-                    ...meeting,
-                    attendeeCount: e.target.value,
-                  })
-                }
-              />
-            </>
+          {meeting.meetingKind === "GROUP" && (
+            <input
+              type="number"
+              placeholder="Number of Attendees"
+              className="w-full border p-2"
+              value={meeting.attendeeCount}
+              onChange={e =>
+                setMeeting({
+                  ...meeting,
+                  attendeeCount: e.target.value,
+                })
+              }
+            />
           )}
+
+          <select
+            className="w-full border p-2"
+            value={meeting.intent}
+            onChange={e =>
+              setMeeting({ ...meeting, intent: e.target.value })
+            }
+          >
+            <option value="TRIAL">Trial</option>
+            <option value="DEMO">Demo</option>
+            <option value="FOLLOW_UP">Follow-up</option>
+          </select>
 
           <input
             placeholder="Business Potential (e.g. 5–10 kg)"
@@ -182,18 +179,24 @@ export default function LogActivityPage() {
       {/* ================= SAMPLE ================= */}
       {type === "SAMPLE_DISTRIBUTION" && (
         <div className="space-y-2">
-          <input
-            placeholder="Product Name"
+          <select
             className="w-full border p-2"
-            value={sample.productName}
+            value={sample.productId}
             onChange={e =>
-              setSample({ ...sample, productName: e.target.value })
+              setSample({ ...sample, productId: e.target.value })
             }
-          />
+          >
+            <option value="">Select Product</option>
+            {PRODUCTS.map(p => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </select>
 
           <input
-            placeholder="Quantity"
             type="number"
+            placeholder="Quantity"
             className="w-full border p-2"
             value={sample.quantity}
             onChange={e =>
@@ -214,7 +217,7 @@ export default function LogActivityPage() {
           </select>
 
           <input
-            placeholder="Given To"
+            placeholder="Given To (Farmer / Group)"
             className="w-full border p-2"
             value={sample.givenTo}
             onChange={e =>
@@ -227,6 +230,30 @@ export default function LogActivityPage() {
       {/* ================= SALE ================= */}
       {type === "SALE" && (
         <div className="space-y-2">
+          <input
+            placeholder="Customer Name"
+            className="w-full border p-2"
+            value={sale.customerName}
+            onChange={e =>
+              setSale({ ...sale, customerName: e.target.value })
+            }
+          />
+
+          <select
+            className="w-full border p-2"
+            value={sale.customerCategory}
+            onChange={e =>
+              setSale({
+                ...sale,
+                customerCategory: e.target.value,
+              })
+            }
+          >
+            <option value="FARMER">Farmer</option>
+            <option value="DISTRIBUTOR">Distributor</option>
+            <option value="RETAILER">Retailer</option>
+          </select>
+
           <select
             className="w-full border p-2"
             value={sale.mode}
@@ -236,34 +263,24 @@ export default function LogActivityPage() {
             <option value="B2B">B2B</option>
           </select>
 
-          <input
-            placeholder="Product Name"
+          <select
             className="w-full border p-2"
-            value={sale.productName}
+            value={sale.productId}
             onChange={e =>
-              setSale({ ...sale, productName: e.target.value })
+              setSale({ ...sale, productId: e.target.value })
             }
-          />
+          >
+            <option value="">Select Product</option>
+            {PRODUCTS.map(p => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </select>
 
           <input
-            placeholder="SKU"
-            className="w-full border p-2"
-            value={sale.sku}
-            onChange={e => setSale({ ...sale, sku: e.target.value })}
-          />
-
-          <input
-            placeholder="Pack Size"
-            className="w-full border p-2"
-            value={sale.packSize}
-            onChange={e =>
-              setSale({ ...sale, packSize: e.target.value })
-            }
-          />
-
-          <input
-            placeholder="Quantity"
             type="number"
+            placeholder="Quantity"
             className="w-full border p-2"
             value={sale.quantity}
             onChange={e =>
@@ -274,9 +291,26 @@ export default function LogActivityPage() {
           <label className="flex items-center gap-2 text-sm">
             <input
               type="checkbox"
+              checked={sale.isFollowUpSale}
+              onChange={e =>
+                setSale({
+                  ...sale,
+                  isFollowUpSale: e.target.checked,
+                })
+              }
+            />
+            Follow-up Sale
+          </label>
+
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
               checked={sale.isRepeatOrder}
               onChange={e =>
-                setSale({ ...sale, isRepeatOrder: e.target.checked })
+                setSale({
+                  ...sale,
+                  isRepeatOrder: e.target.checked,
+                })
               }
             />
             Repeat Order

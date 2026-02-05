@@ -36,25 +36,85 @@ export default function EndDaySummary() {
       <MapView activities={summary.activities} />
 
       {/* TIMELINE */}
-      <div>
-        <h2 className="font-medium mb-2">Activity Timeline</h2>
-        {summary.activities.map(act => (
-          <div
-            key={act._id}
-            className="border rounded p-2 mb-2"
-          >
-            <p className="font-medium">{act.type}</p>
-            <p className="text-sm text-gray-600">
-              {new Date(act.createdAt).toLocaleTimeString()}
-            </p>
-            {act.address && (
-              <p className="text-xs text-gray-500">
-                📍 {act.address}
-              </p>
-            )}
-          </div>
-        ))}
+<div>
+  <h2 className="font-medium mb-2">Activity Timeline</h2>
+
+  {summary.activities.length === 0 && (
+    <p className="text-sm text-gray-500">
+      No activities for this day
+    </p>
+  )}
+
+  {summary.activities.map(act => (
+    <div
+      key={act._id}
+      className="border rounded p-3 mb-2 space-y-1 bg-white"
+    >
+      {/* HEADER */}
+      <div className="flex justify-between items-center">
+        <p className="font-medium">
+          {act.type.replaceAll("_", " ")}
+        </p>
+        <p className="text-xs text-gray-500">
+          {new Date(act.createdAt).toLocaleTimeString()}
+        </p>
       </div>
+
+      {/* ADDRESS */}
+      {act.address && (
+        <p className="text-xs text-gray-600">
+          📍 {act.address.split(",").slice(0, 2).join(",")}
+        </p>
+      )}
+
+      {/* MEETING */}
+      {act.meeting && (
+        <div className="text-sm">
+          <p>👤 {act.meeting.personName}</p>
+          {act.meeting.intent && (
+            <p className="text-xs text-gray-600">
+              Intent: {act.meeting.intent}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* SAMPLE */}
+      {act.sample && (
+        <div className="text-sm">
+          <p>
+            📦 {act.sample.productId} — {act.sample.quantity}
+          </p>
+          {act.sample.purpose && (
+            <p className="text-xs text-gray-600">
+              Purpose: {act.sample.purpose}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* SALE */}
+      {act.sale && (
+        <div className="text-sm">
+          <p>
+            🧾 {act.sale.productId} — {act.sale.quantity}
+          </p>
+          <p className="text-xs text-gray-600">
+            {act.sale.customerName} · {act.sale.mode}
+          </p>
+        </div>
+      )}
+
+      {/* NOTES */}
+      {act.notes && (
+        <p className="text-xs text-gray-500">
+          📝 {act.notes}
+        </p>
+      )}
+    </div>
+  ))}
+</div>
+
     </div>
   );
 }

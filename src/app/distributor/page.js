@@ -142,71 +142,132 @@ useEffect(() => {
 
     {/* LOG BUTTONS */}
     <div className="grid grid-cols-2 gap-3">
-      <button
-        onClick={() =>
-          window.location.href =
-            "/distributor/log-activity?type=MEETING"
-        }
-        className="btn-secondary"
-      >
-        Log Meeting
-      </button>
+  <button
+    onClick={() =>
+      router.push(
+        "/distributor/log-activity?type=MEETING_ONE_ON_ONE"
+      )
+    }
+    className="btn-secondary"
+  >
+    Log Meeting
+  </button>
 
-      <button
-        onClick={() =>
-          window.location.href =
-            "/distributor/log-activity?type=SAMPLE"
-        }
-        className="btn-secondary"
-      >
-        Log Sample
-      </button>
+  <button
+    onClick={() =>
+      router.push(
+        "/distributor/log-activity?type=SAMPLE_DISTRIBUTION"
+      )
+    }
+    className="btn-secondary"
+  >
+    Log Sample
+  </button>
 
-      <button
-        onClick={() =>
-          window.location.href =
-            "/distributor/log-activity?type=SALE"
-        }
-        className="btn-secondary"
-      >
-        Log Sale
-      </button>
+  <button
+    onClick={() =>
+      router.push(
+        "/distributor/log-activity?type=SALE"
+      )
+    }
+    className="btn-secondary"
+  >
+    Log Sale
+  </button>
 
-      <button
-        onClick={captureLocation}
-        className="btn-secondary"
-      >
-        Capture Location
-      </button>
-    </div>
+  <button
+    onClick={() =>
+      router.push(
+        "/distributor/log-activity?type=LOCATION_PING"
+      )
+    }
+    className="btn-secondary"
+  >
+    Capture Location
+  </button>
+</div>
+
 
     {/* TODAY LOGS */}
-    <div className="mt-6">
-      <h2 className="font-semibold mb-2">
-        Today’s Logs
-      </h2>
+<div className="mt-6">
+  <h2 className="font-semibold mb-2">Today’s Logs</h2>
 
-      {activities.length === 0 && (
-        <p className="text-sm text-gray-500">
-          No activities logged yet
+  {activities.length === 0 && (
+    <p className="text-sm text-gray-500">
+      No activities logged yet
+    </p>
+  )}
+
+  {activities.map(act => (
+    <div
+      key={act._id}
+      className="bg-white border rounded p-3 mb-2 space-y-1"
+    >
+      {/* HEADER */}
+      <div className="flex justify-between items-center">
+        <p className="font-medium">
+          {act.type.replaceAll("_", " ")}
+        </p>
+        <p className="text-xs text-gray-500">
+          {new Date(act.createdAt).toLocaleTimeString()}
+        </p>
+      </div>
+
+      {/* ADDRESS */}
+      {act.address && (
+        <p className="text-xs text-gray-600">
+          📍 {act.address.split(",").slice(0, 2).join(",")}
         </p>
       )}
 
-      {activities.map(act => (
-        <div
-          key={act._id}
-          className="bg-white border rounded p-3 mb-2"
-        >
-          <p className="font-medium">{act.type}</p>
-          <p className="text-sm text-gray-600">
-            {new Date(act.createdAt).toLocaleTimeString()}
-          </p>
-          {act.notes && (
-            <p className="text-sm">{act.notes}</p>
+      {/* MEETING */}
+      {act.meeting && (
+        <div className="text-sm">
+          <p>👤 {act.meeting.personName}</p>
+          {act.meeting.intent && (
+            <p className="text-xs text-gray-600">
+              Intent: {act.meeting.intent}
+            </p>
           )}
         </div>
-      ))}
+      )}
+
+      {/* SAMPLE */}
+      {act.sample && (
+        <div className="text-sm">
+          <p>
+            📦 {act.sample.productId} — {act.sample.quantity}
+          </p>
+          {act.sample.purpose && (
+            <p className="text-xs text-gray-600">
+              Purpose: {act.sample.purpose}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* SALE */}
+      {act.sale && (
+        <div className="text-sm">
+          <p>
+            🧾 {act.sale.productId} — {act.sale.quantity}
+          </p>
+          <p className="text-xs text-gray-600">
+            {act.sale.customerName} · {act.sale.mode}
+          </p>
+        </div>
+      )}
+
+      {/* NOTES */}
+      {act.notes && (
+        <p className="text-xs text-gray-500">
+          📝 {act.notes}
+        </p>
+      )}
     </div>
+  ))}
+</div>
+
 
     {/* END DAY */}
     <button

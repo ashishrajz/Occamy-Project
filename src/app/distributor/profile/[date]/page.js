@@ -56,41 +56,90 @@ export default function DaySummaryPage() {
       </div>
 
       {/* ACTIVITY LIST */}
-      <div>
-        <h2 className="font-semibold mb-3">
-          Activities
-        </h2>
+<div>
+  <h2 className="font-semibold mb-3">
+    Activities
+  </h2>
 
-        {data.activities.map(act => (
-          <div
-            key={act._id}
-            onClick={() =>
-              router.push(`/distributor/activity/${act._id}`)
-            }
-            className="border rounded p-3 mb-2 cursor-pointer hover:bg-gray-50"
-          >
-            <p className="font-medium">
-              {formatType(act.type)}
-            </p>
+  {data.activities.length === 0 && (
+    <p className="text-sm text-gray-500">
+      No activities found
+    </p>
+  )}
 
-            <p className="text-xs text-gray-600">
-              {new Date(act.createdAt).toLocaleTimeString()}
-            </p>
-
-            {act.address && (
-              <p className="text-xs text-gray-500">
-                📍 {act.address}
-              </p>
-            )}
-
-            {act.notes && (
-              <p className="text-sm mt-1 line-clamp-2">
-                {act.notes}
-              </p>
-            )}
-          </div>
-        ))}
+  {data.activities.map(act => (
+    <div
+      key={act._id}
+      onClick={() =>
+        router.push(`/distributor/activity/${act._id}`)
+      }
+      className="border rounded p-3 mb-2 cursor-pointer hover:bg-gray-50 space-y-1"
+    >
+      {/* HEADER */}
+      <div className="flex justify-between items-center">
+        <p className="font-medium">
+          {formatType(act.type)}
+        </p>
+        <p className="text-xs text-gray-500">
+          {new Date(act.createdAt).toLocaleTimeString()}
+        </p>
       </div>
+
+      {/* ADDRESS */}
+      {act.address && (
+        <p className="text-xs text-gray-600">
+          📍 {act.address.split(",").slice(0, 2).join(",")}
+        </p>
+      )}
+
+      {/* MEETING */}
+      {act.meeting && (
+        <div className="text-sm">
+          <p>👤 {act.meeting.personName}</p>
+          {act.meeting.intent && (
+            <p className="text-xs text-gray-600">
+              Intent: {act.meeting.intent}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* SAMPLE */}
+      {act.sample && (
+        <div className="text-sm">
+          <p>
+            📦 {act.sample.productId} — {act.sample.quantity}
+          </p>
+          {act.sample.purpose && (
+            <p className="text-xs text-gray-600">
+              Purpose: {act.sample.purpose}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* SALE */}
+      {act.sale && (
+        <div className="text-sm">
+          <p>
+            🧾 {act.sale.productId} — {act.sale.quantity}
+          </p>
+          <p className="text-xs text-gray-600">
+            {act.sale.customerName} · {act.sale.mode}
+          </p>
+        </div>
+      )}
+
+      {/* NOTES */}
+      {act.notes && (
+        <p className="text-xs text-gray-500 line-clamp-2">
+          📝 {act.notes}
+        </p>
+      )}
+    </div>
+  ))}
+</div>
+
     </div>
   );
 }
