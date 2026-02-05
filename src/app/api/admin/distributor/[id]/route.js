@@ -20,6 +20,18 @@ export async function GET(req, ctx) {
   const activities = await Activity.find({ distributor: id });
   const days = await DistributorDay.find({ distributor: id });
 
+  const meetings = activities.filter(a =>
+    a.type.startsWith("MEETING")
+  );
+
+  const sales = activities.filter(a =>
+    a.type === "SALE"
+  );
+
+  const samples = activities.filter(a =>
+    a.type === "SAMPLE_DISTRIBUTION"
+  );
+
   return NextResponse.json({
     profile: {
       name: user.name,
@@ -29,11 +41,14 @@ export async function GET(req, ctx) {
     },
     stats: {
       totalDistance: days.length,
-      meetingsCount: activities.filter(a => a.type.startsWith("MEETING")).length,
-      farmersContacted: activities.filter(a => a.meeting?.category === "FARMER").length,
-      salesCount: activities.filter(a => a.type === "SALE").length,
-      b2c: activities.filter(a => a.sale?.mode === "B2C").length,
-      b2b: activities.filter(a => a.sale?.mode === "B2B").length,
+      meetingsCount: meetings.length,
+      samplesCount: samples.length,          // ✅ FIX
+      farmersContacted: meetings.filter(
+        a => a.meeting?.category === "FARMER"
+      ).length,
+      salesCount: sales.length,
+      b2c: sales.filter(a => a.sale?.mode === "B2C").length,
+      b2b: sales.filter(a => a.sale?.mode === "B2B").length,
       totalDaysWorked: days.length,
     },
   });

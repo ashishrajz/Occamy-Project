@@ -13,51 +13,84 @@ export async function GET(req) {
 
   const { searchParams } = new URL(req.url);
   const range = searchParams.get("range") || "MONTH";
-  const state = searchParams.get("state");
-  const district = searchParams.get("district");
+  const state = searchParams.get("state") || "ALL";
+  const district = searchParams.get("district") || "ALL";
 
+  /* ---------------- DATE RANGE ---------------- */
   const rangeData = getDateRange(range);
+  if (!rangeData) {
+    return NextResponse.json(
+      { error: "Invalid date range" },
+      { status: 400 }
+    );
+  }
 
-if (!rangeData) {
-  return NextResponse.json(
-    { error: "Invalid date range" },
-    { status: 400 }
-  );
-}
+  let { start, end } = rangeData;
 
-const { start, end } = rangeData;
+  // 🔥 CRITICAL FIX: include entire end day
+  end = new Date(end);
+  end.setHours(23, 59, 59, 999);
 
+  /* ---------------- VALID DAYS ---------------- */
+  const validDays = await DistributorDay.find({
+    date: {
+      $gte: start.toISOString().split("T")[0],
+      $lte: end.toISOString().split("T")[0],
+    },
+  }).select("_id distributor endTime");
+
+  const dayIds = validDays.map(d => d._id);
 
   /* ---------------- BASE MATCH ---------------- */
   const baseMatch = {
+    day: { $in: dayIds },
+  };
+
+  if (state !== "ALL") baseMatch["geo.state"] = state;
+  if (district !== "ALL") baseMatch["geo.district"] = district;
+
+  /* ---------------- DATE MATCH (FUNNELS) ---------------- */
+  const dateMatch = {
     createdAt: { $gte: start, $lte: end },
   };
 
-  if (state && state !== "ALL") {
-    baseMatch["geo.state"] = state;
-  }
-  if (district && district !== "ALL") {
-    baseMatch["geo.district"] = district;
-  }
+  if (state !== "ALL") dateMatch["geo.state"] = state;
+  if (district !== "ALL") dateMatch["geo.district"] = district;
 
-  const sampleCount = await Activity.countDocuments({
-    ...baseMatch,
-    type: "SAMPLE_DISTRIBUTION",
-  });
-  
-  const followUpSales = await Activity.countDocuments({
-    ...baseMatch,
-    type: "SALE",
-    "sale.isFollowUpSale": true,
-  });
-  
+  /* ---------------- CONVERSION FUNNEL ---------------- */
+  const sampleCount =
+    (await Activity.countDocuments({
+      ...dateMatch,
+      type: "SAMPLE_DISTRIBUTION",
+    })) || 0;
+
+  const followUpSales =
+    (await Activity.countDocuments({
+      ...dateMatch,
+      type: "SALE",
+      "sale.isFollowUpSale": true,
+    })) || 0;
+
+  /* ---------------- NEW vs REPEAT ORDERS ---------------- */
+  const newOrders =
+    (await Activity.countDocuments({
+      ...dateMatch,
+      type: "SALE",
+      "sale.isRepeatOrder": false,
+    })) || 0;
+
+  const repeatOrders =
+    (await Activity.countDocuments({
+      ...dateMatch,
+      type: "SALE",
+      "sale.isRepeatOrder": true,
+    })) || 0;
 
   /* ---------------- KPIs ---------------- */
   const [
     meetings,
     sales,
     samples,
-    distanceDays,
     distributors,
   ] = await Promise.all([
     Activity.countDocuments({
@@ -69,12 +102,11 @@ const { start, end } = rangeData;
       ...baseMatch,
       type: "SAMPLE_DISTRIBUTION",
     }),
-    DistributorDay.find({
-      date: { $gte: start, $lte: end },
-      endTime: { $ne: null },
-    }),
     User.countDocuments({ role: "DISTRIBUTOR" }),
   ]);
+
+  const activeToday = validDays.filter(d => !d.endTime).length;
+  const distanceDays = validDays.filter(d => d.endTime).length;
 
   /* ---------------- B2C vs B2B ---------------- */
   const b2Split = await Activity.aggregate([
@@ -149,14 +181,18 @@ const { start, end } = rangeData;
   ]);
 
   /* ---------------- DISTRIBUTOR PERFORMANCE ---------------- */
-  const distributorPerf = await Activity.aggregate([
+  const distributorPerformance = await Activity.aggregate([
     { $match: baseMatch },
     {
       $group: {
         _id: "$distributor",
         meetings: {
           $sum: {
-            $cond: [{ $regexMatch: { input: "$type", regex: "^MEETING" } }, 1, 0],
+            $cond: [
+              { $regexMatch: { input: "$type", regex: "^MEETING" } },
+              1,
+              0,
+            ],
           },
         },
         sales: {
@@ -181,38 +217,45 @@ const { start, end } = rangeData;
       },
     },
   ]);
+
   /* ---------------- STATES & DISTRICTS ---------------- */
-const states = await Activity.distinct("geo.state", {
+  const states = await Activity.distinct("geo.state", {
+    ...baseMatch,
     "geo.state": { $ne: "" },
   });
-  
+
   const districts = await Activity.distinct("geo.district", {
+    ...baseMatch,
     "geo.district": { $ne: "" },
   });
-  
 
   return NextResponse.json({
     kpis: {
       distributors,
+      activeToday,
       meetings,
       sales,
       samples,
-      distance: distanceDays.length,
+      distance: distanceDays,
     },
 
     conversionFunnel: [
-        { name: "Samples Given", value: sampleCount },
-        { name: "Follow-up Sales", value: followUpSales },
-      ],
-      
-  
+      { name: "Samples Given", value: sampleCount },
+      { name: "Follow-up Sales", value: followUpSales },
+    ],
+
+    orderSplit: [
+      { name: "New Orders", value: newOrders },
+      { name: "Repeat Orders", value: repeatOrders },
+    ],
+
     states,
     districts,
-  
+
     b2bVsB2c: b2Split,
     productSales,
     customerCategorySplit: customerCategory,
     stateWiseSales: stateWise,
-    distributorPerformance: distributorPerf,
+    distributorPerformance,
   });
 }

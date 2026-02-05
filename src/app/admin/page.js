@@ -39,7 +39,7 @@ export default function AdminDashboard() {
   const {
     kpis,
     b2bVsB2c,
-    repeatVsNew,
+    orderSplit,
     productSales,
     customerCategorySplit,
     conversion,
@@ -114,8 +114,8 @@ export default function AdminDashboard() {
         </ChartCard>
 
         <ChartCard title="New vs Repeat Orders">
-          <PieChartBox data={repeatVsNew} />
-        </ChartCard>
+  <PieChartBox data={orderSplit} />
+</ChartCard>
       </div>
 
       {/* PRODUCT & CUSTOMER */}
@@ -134,26 +134,18 @@ export default function AdminDashboard() {
 
       {/* CONVERSION */}
       <ChartCard title="Meeting → Sale Conversion">
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={conversion}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="count" />
-          </BarChart>
-        </ResponsiveContainer>
-      </ChartCard>
-
-      <ChartCard title="Product-wise Sales">
   <ResponsiveContainer width="100%" height={300}>
-    <BarChart data={data.productSales || []}>
+    <BarChart data={data.conversionFunnel || []}>
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Bar dataKey="quantity" />
+      <Bar dataKey="value" />
     </BarChart>
   </ResponsiveContainer>
 </ChartCard>
+
+
+      
 
 
 <ChartCard title="Sample → Sale Conversion">

@@ -3,11 +3,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import MapView from "@/components/MapView";
+import { useRouter } from "next/navigation";
+
 
 export default function AdminDailyActivityPage() {
   const { id, date } = useParams();
   const [data, setData] = useState(null);
   const [status, setStatus] = useState("loading");
+  const router = useRouter();
+
 
   useEffect(() => {
     fetch(
@@ -116,6 +120,9 @@ export default function AdminDailyActivityPage() {
         {activities.map(act => (
           <div
             key={act._id}
+            onClick={() =>
+              router.push(`/admin/activity/${act._id}`)
+            }
             className="bg-white border rounded p-4 space-y-1"
           >
             <p className="font-medium">{act.type}</p>

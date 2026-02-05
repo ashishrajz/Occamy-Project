@@ -31,36 +31,42 @@ export async function GET(req) {
     day: day._id,
   }).sort({ createdAt: 1 });
 
-  // 🔹 SUMMARY CALCULATION
+  /* ---------------- SUMMARY ---------------- */
+
   const meetings = activities.filter(a =>
     a.type.startsWith("MEETING")
   );
 
-  const sales = activities.filter(a => a.type === "SALE");
+  const sales = activities.filter(a =>
+    a.type === "SALE"
+  );
 
-  const samples = activities.filter(a => a.type === "SAMPLE");
+  const samples = activities.filter(a =>
+    a.type === "SAMPLE_DISTRIBUTION"   // ✅ FIX
+  );
 
   const b2c = sales.filter(s => s.sale?.mode === "B2C").length;
   const b2b = sales.filter(s => s.sale?.mode === "B2B").length;
 
-  const mapActivities = activities
-  .filter(a => a.location?.lat && a.location?.lng)
-  .map(a => ({
-    location: {
-      lat: a.location.lat,
-      lng: a.location.lng,
-    },
-    type: a.type,
-    createdAt: a.createdAt,
-  }));
+  /* ---------------- MAP ---------------- */
 
+  const mapActivities = activities
+    .filter(a => a.location?.lat && a.location?.lng)
+    .map(a => ({
+      location: {
+        lat: a.location.lat,
+        lng: a.location.lng,
+      },
+      type: a.type,
+      createdAt: a.createdAt,
+    }));
 
   return NextResponse.json({
     absent: false,
     summary: {
       meetings: meetings.length,
       sales: sales.length,
-      samples: samples.length,
+      samples: samples.length,          // ✅ now correct
       b2c,
       b2b,
       firstActivity: activities[0]?.createdAt || null,
