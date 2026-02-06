@@ -266,6 +266,10 @@
       "SAMPLE_DISTRIBUTION": "Sample Distribution",
       "SALE": "Sale",
       "LOCATION_PING": "Location Checkpoint"
-    }}
+    },
+  "low": "Low",
+  "medium": "Medium",
+  "high": "High",
+  "veryHigh": "Very High"}
   }
   

@@ -266,7 +266,11 @@
       "SAMPLE_DISTRIBUTION": "नमुना वितरण",
       "SALE": "विक्री",
       "LOCATION_PING": "स्थान तपासणी"
-    }
+    },
+    "low": "कमी",
+  "medium": "मध्यम",
+  "high": "उच्च",
+  "veryHigh": "अत्यंत उच्च"
     }
   }
   

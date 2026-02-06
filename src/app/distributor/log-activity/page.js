@@ -26,6 +26,14 @@ function LogActivityContent() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const t = useTranslations("common");
 
+  const BUSINESS_POTENTIAL_LEVELS = [
+    { value: "LOW", label: t("low") },
+    { value: "MEDIUM", label: t("medium") },
+    { value: "HIGH", label: t("high") },
+    { value: "VERY_HIGH", label: t("veryHigh") },
+  ];
+  
+
 
   const [geo, setGeo] = useState({
     state: "",
@@ -43,8 +51,9 @@ function LogActivityContent() {
     meetingKind: "ONE_ON_ONE",
     attendeeCount: "1",
     intent: "TRIAL",
-    businessPotential: 2,
+    businessPotential: "MEDIUM", // ✅ string, default
   });
+  
 
   const [sample, setSample] = useState({
     productId: "",
@@ -229,6 +238,50 @@ function LogActivityContent() {
 <option value="FOLLOW_UP">{t("followUp")}</option>
 
               </select>
+              {/* BUSINESS POTENTIAL */}
+<div className="space-y-3">
+  <div className="flex justify-between items-center px-1">
+    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+      {t("businessPotential")}
+    </label>
+    <span className="text-[10px] font-black text-emerald-600 uppercase">
+      {BUSINESS_POTENTIAL_LEVELS.find(
+        l => l.value === meeting.businessPotential
+      )?.label}
+    </span>
+  </div>
+
+  <input
+    type="range"
+    min={0}
+    max={3}
+    step={1}
+    value={BUSINESS_POTENTIAL_LEVELS.findIndex(
+      l => l.value === meeting.businessPotential
+    )}
+    onChange={(e) => {
+      const idx = Number(e.target.value);
+      setMeeting({
+        ...meeting,
+        businessPotential: BUSINESS_POTENTIAL_LEVELS[idx].value,
+      });
+    }}
+    className="
+      w-full h-2 rounded-full appearance-none
+      bg-slate-200
+      accent-emerald-500
+      cursor-pointer
+    "
+  />
+
+  <div className="flex justify-between text-[9px] font-black text-slate-400 uppercase tracking-tight">
+    <span>{t("low")}</span>
+    <span>{t("medium")}</span>
+    <span>{t("high")}</span>
+    <span>{t("veryHigh")}</span>
+  </div>
+</div>
+
             </div>
           </>
         )}

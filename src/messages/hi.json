@@ -267,7 +267,14 @@
       "SAMPLE_DISTRIBUTION": "नमूना वितरण",
       "SALE": "बिक्री",
       "LOCATION_PING": "स्थान चेकपॉइंट"
-    }
+    },
+  
+      "low": "कम",
+      "medium": "मध्यम",
+      "high": "उच्च",
+      "veryHigh": "बहुत उच्च"
+   
+    
     
   
   }
