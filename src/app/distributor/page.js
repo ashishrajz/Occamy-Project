@@ -245,7 +245,7 @@ export default function DistributorDashboard() {
                 <div className="absolute inset-0 bg-blue-800 rounded-2xl translate-y-1.5" />
                 <div className="relative flex items-center justify-center gap-3 bg-blue-600 active:bg-blue-700 text-white py-4 rounded-2xl border-b border-blue-400 active:border-b-0 transition-all">
                   <Flag size={20} fill="white" className="group-hover:rotate-12" />
-                  <span className="text-sm font-black uppercase tracking-widest">{t("finishShift")}
+                  <span className="text-sm font-black uppercase tracking-widest">{t("gpsPing")}
                   </span>
                 </div>
               </button>
@@ -263,7 +263,7 @@ export default function DistributorDashboard() {
             <div className="grid grid-cols-2 gap-3">
               <CommandCard label={t("meeting")}
   sub={t("client")} icon={<Users size={20} />} color="bg-indigo-600" onClick={() => router.push("/distributor/log-activity?type=MEETING_ONE_ON_ONE")} />
-              <CommandCard label={t("gpsPing")}
+              <CommandCard label={t("sampleDistribution")}
   sub={t("sync")} icon={<Package size={20} />} color="bg-orange-500" onClick={() => router.push("/distributor/log-activity?type=SAMPLE_DISTRIBUTION")} />
               <CommandCard label={t("sale")}
 sub={t("invoice")}
