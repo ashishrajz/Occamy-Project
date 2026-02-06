@@ -2,32 +2,35 @@
 Field Force Intelligence & Analytics Platform
 
 Occamy is a field activity tracking and analytics platform designed for agri-distribution and rural sales teams.
-It enables distributors to log real-world field activities with location proof, while giving admins powerful dashboards, exports, and AI-driven insights.
 
-This project focuses on production realism, not just UI polish.
+It enables distributors to log real-world activities with GPS proof, while admins get dashboards, exports, and AI-driven insights.
 
-✨ Key Highlights
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+✨ KEY HIGHLIGHTS
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
 
-📍 GPS-verified field activity logging
+📍 GPS-verified activity logging
 
 🧑‍🌾 Distributor-first mobile UX
 
-📊 Admin dashboards with filters & exports
+📊 Admin analytics dashboards
 
-🤖 AI-powered performance summaries
+🤖 AI-generated summaries
 
 🌐 Multi-language support (EN / HI / MR)
 
 🔐 Role-based access control
 
-🧑‍🌾 Distributor Application
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🧑‍🌾 DISTRIBUTOR APPLICATION
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
 What Distributors Can Do
 
-Start and end daily field shifts
+Start / end daily field shifts
 
-Track live GPS location
+Track live GPS coordinates
 
-Log field activities:
+Log activities:
 
 One-on-one meetings
 
@@ -39,13 +42,11 @@ Sales
 
 GPS checkpoints
 
-Upload photos as proof of activity
+Upload photos as proof
 
-Automatically close unfinished previous days
+Auto-close unfinished previous days
 
-Use the app in low-connectivity environments
-
-Work in their preferred language
+Work in low-connectivity environments
 
 UX Design Goals
 
@@ -55,12 +56,14 @@ Minimal typing
 
 Large touch targets
 
-Works reliably on low-end devices
+Reliable on low-end Android devices
 
-🧑‍💼 Admin Dashboard
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🧑‍💼 ADMIN DASHBOARD
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
 Admin Capabilities
 
-View organization-wide activity data
+View organization-wide metrics
 
 Filter by:
 
@@ -80,20 +83,22 @@ Product performance
 
 Distributor efficiency
 
-Download filtered data as CSV
+Export filtered data as CSV
 
-Generate AI-based summaries for quick insights
+Generate AI-based summaries
 
-🧠 Core Domain Models
-1. User
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🧠 CORE DOMAIN MODELS
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+User
 
-Roles supported:
+Roles:
 
-ADMIN – full access
+ADMIN
 
-DISTRIBUTOR – field operations
+DISTRIBUTOR
 
-FARMER – contact entity (no login)
+FARMER
 
 Includes:
 
@@ -101,25 +106,23 @@ Language preference
 
 Region (state, district)
 
-2. DistributorDay
+DistributorDay
 
 Represents one working day for a distributor.
 
 Tracks:
 
-Start time & location
+Start / end time
 
-End time & location
+Start / end location
 
 Total distance travelled
 
 Prevents duplicate active days
 
-Auto-closes previous unfinished days
+Activity (Single Source of Truth)
 
-3. Activity (Single Source of Truth)
-
-Supported activity types:
+Types:
 
 MEETING_ONE_ON_ONE
 
@@ -131,50 +134,46 @@ SALE
 
 LOCATION_PING
 
-Each activity stores:
+Stores:
 
 Distributor & day reference
 
 GPS coordinates
 
-Reverse-geocoded location (state/district/village)
+Structured geo (state, district, village)
 
 Human-readable address
 
-Photos (optional)
+Photos & notes
 
-Notes
+Type-specific metadata
 
-Type-specific metadata (meeting / sale / sample)
-
-🌍 Location & Geo Handling
-How Location Is Captured
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🌍 LOCATION & GEO HANDLING
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+How Location Is Stored
 
 Frontend captures raw GPS (lat, lng)
 
-Backend performs reverse geocoding
+Backend performs reverse-geocoding
 
-Structured geo is stored:
+Structured geo saved separately
 
-state
+Address stored independently
 
-district
-
-village
-
-Human-readable address stored separately
-
-Why Backend Reverse-Geocoding?
+Why Backend Reverse-Geocoding
 
 Prevents client spoofing
 
-Ensures consistent data format
+Consistent DB structure
 
-Keeps DB independent of UI language
+Language-agnostic storage
 
-Guarantees map compatibility
+Reliable map rendering
 
-🌐 Internationalization (i18n)
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🌐 INTERNATIONALIZATION (i18n)
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
 
 Supported languages:
 
@@ -184,159 +183,64 @@ Hindi (hi)
 
 Marathi (mr)
 
-Design principles:
+Principles:
 
-All UI text comes from JSON files
+UI text only via JSON files
 
-Database stores language-neutral enums
+DB stores enums, not translated text
 
-Translation keys map enums → readable labels
+Safe fallbacks for missing keys
 
-Safe fallbacks for missing translations
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🤖 AI ANALYTICS
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
 
-🤖 AI Analytics
+Admins can generate:
 
-Admins can generate AI summaries such as:
+Productivity summaries
 
-Distributor productivity trends
+Regional performance insights
 
-High-potential meetings
+Distributor behavior trends
 
-Sales intensity by region
+AI is advisory only — no automation or hard dependency.
 
-Operational gaps
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+⚖️ ASSUMPTIONS & TRADE-OFFS
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+Accuracy vs Cost
 
-AI Design Philosophy
+Free reverse-geocoding APIs
 
-AI is assistive, not authoritative
+Raw GPS always stored as fallback
 
-System works even if AI fails
+No Live Tracking
 
-Uses free-tier APIs where possible
+Activity-based location capture
 
-No hard dependency on paid services
+Saves battery & backend load
 
-📦 CSV Export
+AI Is Non-Authoritative
 
-Server-side generation
+Insights only, no decisions
 
-Respects all applied filters
+OTP Login Deferred
 
-Admin-only access
+SMS providers require verification/payment
 
-Excel / Google Sheets friendly
+JWT retained for reliability
 
-Designed for reporting & audits
+Enums Over Dynamic Config
 
-🛠 Tech Stack
-Frontend
+Strong data integrity
 
-Next.js (App Router)
+Simpler analytics & queries
 
-React
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🚀 FUTURE IMPROVEMENTS
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
 
-Tailwind CSS
-
-next-intl (i18n)
-
-Lucide Icons
-
-Backend
-
-Next.js API Routes
-
-MongoDB + Mongoose
-
-JWT authentication
-
-Role-based authorization
-
-Integrations
-
-Cloudinary (image uploads)
-
-Reverse-geocoding API
-
-Free-tier LLM APIs
-
-🌱 Data Seeding (Demo-Ready)
-
-A dedicated seeding system generates realistic demo data:
-
-6+ distributors
-
-Multiple working days per distributor
-
-Dense activity logs
-
-Multiple states & districts
-
-Mixed activity types
-
-Purpose:
-
-Dashboards look realistic
-
-Maps render correctly
-
-AI summaries have meaningful input
-
-🔐 Authentication & Security
-
-Cookie-based JWT auth
-
-HTTP-only secure cookies
-
-Server-side role enforcement
-
-Admin-only protected routes
-
-Distributor routes fully isolated
-
-⚖️ Assumptions & Trade-offs
-1. Accuracy vs Cost
-
-Used free reverse-geocoding APIs
-
-Trade-off: occasional naming inconsistencies
-
-Mitigation: raw GPS always stored
-
-2. No Real-Time Live Tracking
-
-Location stored per activity, not streamed
-
-Reduces battery drain & backend load
-
-Better suited for rural field conditions
-
-3. AI Is Advisory Only
-
-No automation based on AI output
-
-Prevents incorrect business decisions
-
-Keeps system deterministic
-
-4. OTP Login Not Enforced
-
-SMS providers require verification/payments
-
-JWT login retained for reliability
-
-OTP planned for future production use
-
-5. Enums Over Dynamic Config
-
-Products & activity types are enums
-
-Trade-off: less runtime flexibility
-
-Benefit: strong data integrity & simpler analytics
-
-🚀 Future Improvements
-
-Offline queue sync
+Offline sync queue
 
 Route replay on maps
 
@@ -344,20 +248,22 @@ Supervisor roles
 
 Verified OTP login
 
-Advanced AI trend comparisons
+Advanced AI comparisons
 
-Exportable PDF reports
+PDF exports
 
-🧠 Author Notes
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🧠 AUTHOR NOTES
+⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
 
-This project was intentionally designed to demonstrate:
+This project demonstrates:
 
-Real-world backend correctness
+Production-grade backend design
 
-Field constraints (GPS, network, devices)
+Field-ready GPS handling
 
-Clean schema design
+Clean schema modeling
 
-Production-oriented thinking
+Practical trade-offs
 
-It is resume-ready, interview-ready, and demo-ready.
+Resume-ready. Demo-ready. Interview-ready.
