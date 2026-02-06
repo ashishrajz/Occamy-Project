@@ -173,6 +173,99 @@
     "followUpSale": "Follow-up Sale",
     "totalRevenue": "Total Revenue",
 
-    "geocodedAddress": "Geocoded Address"}
+    "geocodedAddress": "Geocoded Address",
+  "locating": "Locating please wait...",
+    "shiftOver": "Shift Over",
+    "readyToStart": "Ready to start?",
+    "seeTomorrow": "See you tomorrow morning",
+    "dailyAttendance": "Daily Field Attendance",
+    "reportsSynced": "Reports Synced",
+    "fieldWorkActive": "Field Work Active",
+    "shiftStarted": "Shift Started",
+    "timeActive": "Time Active",
+    "recentActivity": "Recent Activity",
+    "logsAppearHere": "Logs appear here",
+    "gpsRequired": "GPS Required",
+    "locationBypass": "Location bypass",
+    "areaIdentified": "Area Identified",
+
+    "startFieldWork": "START FIELD WORK",
+    "finishShift": "Finish Shift",
+    "markCheckpoint": "Mark Checkpoint",
+
+    "meeting": "Meeting",
+    "client": "Client",
+    "sample": "Sample",
+    "units": "Units",
+    "sale": "Sale",
+    "invoice": "Invoice",
+    "gpsPing": "GPS Ping",
+    "sync": "Sync",
+
+    "gpsSync": "GPS Sync",
+  "detecting": "Detecting…",
+    "reverseGeocodeFailed": "Unable to detect location",
+    "submissionFailed": "Submission failed. Please try again.",
+
+    "logActivity": "Log Activity",
+    "realTimeEntry": "Real-time Field Entry",
+    "currentTime": "Current time",
+
+    "verifiedLocation": "Verified Location",
+    "district": "District",
+    "coordinates": "Coordinates",
+
+    "meetingKind": {
+      "ONE_ON_ONE": "One on One",
+      "GROUP": "Group"
+    },
+
+    "activityType": {
+      "MEETING_ONE_ON_ONE": "One on One Meeting",
+      "MEETING_GROUP": "Group Meeting",
+      "SAMPLE_DISTRIBUTION": "Sample Distribution",
+      "SALE": "Sale",
+      "LOCATION_PING": "Location Ping"
+    },
+
+    "personOrGroup": "Person / Group Name",
+    "farmer": "Farmer",
+    "retailer": "Retailer",
+    "influencer": "Influencer",
+    "contactPhone": "Contact Phone",
+    "attendeeCount": "Attendee Count",
+    "trialIntent": "Trial Intent",
+    "productDemo": "Product Demo",
+    "followUp": "Follow Up",
+
+    "sampleDetails": "Sample Details",
+    "selectSampleProduct": "Select Sample Product",
+    "quantity": "Quantity",
+    "trial": "Trial",
+    "demo": "Demo",
+    "givenTo": "Given To (Name)",
+
+    "saleRecord": "Commercial Sale Record",
+    "customerName": "Customer Name",
+    "distributor": "Distributor",
+    "selectProduct": "Select Product",
+    "totalAmount": "Total Amount",
+    "repeat": "Repeat",
+    "followUpSale": "Follow-up",
+
+    "photosProof": "Photos & Proof",
+    "add": "Add",
+
+    "fieldNotes": "Field notes and observations…",
+    "odometer": "Odometer Reading",
+    "finishActivity": "Finish Activity",
+  "logActivity": "Log Activity",
+    "activityType": {
+      "MEETING_ONE_ON_ONE": "One-on-One Meeting",
+      "MEETING_GROUP": "Group Meeting",
+      "SAMPLE_DISTRIBUTION": "Sample Distribution",
+      "SALE": "Sale",
+      "LOCATION_PING": "Location Checkpoint"
+    }}
   }
   

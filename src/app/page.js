@@ -120,25 +120,25 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-4 gap-6">
             <ProductCard 
-              img="https://occamy.co.in/images/Bovi-Booster-front.png"
+              img="bovi.png"
               tag="Cattle"
               title="Bovi Booster"
               desc="Improves milk fat, SNF, and SNF while reducing somatic cell counts."
             />
             <ProductCard 
-              img="https://occamy.co.in/images/Buck-Booster-front.png"
+              img="buck-booster.png"
               tag="Goats"
               title="Buck Booster"
               desc="High protein microbial supplement for superior weight gain."
             />
             <ProductCard 
-              img="https://occamy.co.in/images/Rakshak-front.png"
+              img="rakshak.png"
               tag="Immunity"
               title="Rakshak"
               desc="Affordable science-backed immunity for backyard farming."
             />
             <ProductCard 
-              img="https://images.unsplash.com/photo-1551028150-64b9f398f678?q=80&w=800&auto=format&fit=crop"
+              img="jodi.png"
               tag="Strength"
               title="Jodi No. 1"
               desc="Muscle strength and stamina builder for farming and racing bulls."

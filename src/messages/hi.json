@@ -173,7 +173,102 @@
     "followUpSale": "फॉलो-अप बिक्री",
     "totalRevenue": "कुल राजस्व",
 
-    "geocodedAddress": "जियोकोडेड पता"
+    "geocodedAddress": "जियोकोडेड पता",
+    "locating": "स्थान खोजा जा रहा है...",
+    "shiftOver": "आज का कार्य समाप्त",
+    "readyToStart": "काम शुरू करें?",
+    "seeTomorrow": "कल फिर मिलेंगे",
+    "dailyAttendance": "दैनिक फील्ड उपस्थिति",
+    "reportsSynced": "रिपोर्ट सिंक हो गई",
+    "fieldWorkActive": "फील्ड कार्य चालू",
+    "shiftStarted": "कार्य प्रारंभ",
+    "timeActive": "सक्रिय समय",
+    "recentActivity": "हाल की गतिविधि",
+    "logsAppearHere": "लॉग यहाँ दिखाई देंगे",
+    "gpsRequired": "GPS आवश्यक है",
+    "locationBypass": "स्थान उपलब्ध नहीं",
+    "areaIdentified": "क्षेत्र पहचाना गया",
+
+    "startFieldWork": "काम शुरू करें",
+    "finishShift": "कार्य समाप्त करें",
+    "markCheckpoint": "चेकपॉइंट दर्ज करें",
+
+    "meeting": "मीटिंग",
+    "client": "ग्राहक",
+    "sample": "नमूना",
+    "units": "इकाइयाँ",
+    "sale": "बिक्री",
+    "invoice": "चालान",
+    "gpsPing": "GPS पिंग",
+    "sync": "सिंक",
+
+    "gpsSync": "GPS सिंक",
+    "detecting": "पता लगाया जा रहा है…",
+    "reverseGeocodeFailed": "स्थान पता नहीं चल सका",
+    "submissionFailed": "सबमिशन विफल हुआ। कृपया पुनः प्रयास करें।",
+
+    "logActivity": "गतिविधि दर्ज करें",
+    "realTimeEntry": "रीयल-टाइम फील्ड एंट्री",
+    "currentTime": "वर्तमान समय",
+
+    "verifiedLocation": "सत्यापित स्थान",
+    "district": "जिला",
+    "coordinates": "निर्देशांक",
+
+    "meetingKind": {
+      "ONE_ON_ONE": "व्यक्तिगत बैठक",
+      "GROUP": "समूह बैठक"
+    },
+
+    "activityType": {
+      "MEETING_ONE_ON_ONE": "व्यक्तिगत बैठक",
+      "MEETING_GROUP": "समूह बैठक",
+      "SAMPLE_DISTRIBUTION": "नमूना वितरण",
+      "SALE": "बिक्री",
+      "LOCATION_PING": "स्थान अपडेट"
+    },
+
+    "personOrGroup": "व्यक्ति / समूह का नाम",
+    "farmer": "किसान",
+    "retailer": "रिटेलर",
+    "influencer": "प्रभावक",
+    "contactPhone": "संपर्क नंबर",
+    "attendeeCount": "उपस्थित लोगों की संख्या",
+    "trialIntent": "परीक्षण उद्देश्य",
+    "productDemo": "उत्पाद डेमो",
+    "followUp": "फॉलो-अप",
+
+    "sampleDetails": "नमूना विवरण",
+    "selectSampleProduct": "नमूना उत्पाद चुनें",
+    "quantity": "मात्रा",
+    "trial": "परीक्षण",
+    "demo": "डेमो",
+    "givenTo": "किसे दिया गया (नाम)",
+
+    "saleRecord": "व्यावसायिक बिक्री रिकॉर्ड",
+    "customerName": "ग्राहक का नाम",
+    "distributor": "वितरक",
+    "selectProduct": "उत्पाद चुनें",
+    "totalAmount": "कुल राशि",
+    "repeat": "दोबारा",
+    "followUpSale": "फॉलो-अप",
+
+    "photosProof": "फोटो और प्रमाण",
+    "add": "जोड़ें",
+
+    "fieldNotes": "फील्ड नोट्स और अवलोकन…",
+    "odometer": "ओडोमीटर रीडिंग",
+    "finishActivity": "गतिविधि समाप्त करें",
+    "logActivity": "क्रियाकलाप नोंदवा",
+    "logActivity": "गतिविधि लॉग करें",
+    "activityType": {
+      "MEETING_ONE_ON_ONE": "एक-से-एक बैठक",
+      "MEETING_GROUP": "समूह बैठक",
+      "SAMPLE_DISTRIBUTION": "नमूना वितरण",
+      "SALE": "बिक्री",
+      "LOCATION_PING": "स्थान चेकपॉइंट"
+    }
+    
   
   }
   }

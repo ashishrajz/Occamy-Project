@@ -122,7 +122,7 @@ export default function ActivityDetailPage() {
           )}
 
           {/* ADDRESS & NOTES */}
-          <DataSection title="Field Notes" icon={<FileText size={18} className="text-slate-500" />}>
+          <DataSection title={t("fieldNotes")} icon={<FileText size={18} className="text-slate-500" />}>
              <div className="space-y-4">
                 {activity.address && (
                   <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
