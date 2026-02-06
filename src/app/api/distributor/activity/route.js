@@ -50,10 +50,38 @@ export async function POST(req) {
     : null;
 
   /* ================= GEO ================= */
-  const lat = Number(formData.get("lat"));
-  const lng = Number(formData.get("lng"));
+  const locationRaw = formData.get("location");
+if (!locationRaw) {
+  return NextResponse.json(
+    { error: "Missing location data" },
+    { status: 400 }
+  );
+}
 
-  const geo = await reverseGeocode(lat, lng);
+const location = JSON.parse(locationRaw);
+const lat = Number(location.lat);
+const lng = Number(location.lng);
+
+if (
+  Number.isNaN(lat) ||
+  Number.isNaN(lng) ||
+  lat === 0 ||
+  lng === 0
+) {
+  return NextResponse.json(
+    { error: "Invalid GPS coordinates" },
+    { status: 400 }
+  );
+}
+
+
+let geo = null;
+try {
+  geo = await reverseGeocode(lat, lng);
+} catch (e) {
+  console.error("Reverse geocode failed", e);
+}
+
   const geoData = geo
     ? {
         state: geo.state || "",
@@ -130,7 +158,8 @@ export async function POST(req) {
 
     geo: geoData,
     location: { lat, lng },
-    address: geo?.displayName || "Unknown location",
+    address: geo?.displayName || `${lat.toFixed(5)}, ${lng.toFixed(5)}`,
+
 
     meeting: type.startsWith("MEETING") ? meeting : undefined,
     sample: type === "SAMPLE_DISTRIBUTION" ? sample : undefined,

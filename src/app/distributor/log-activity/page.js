@@ -27,7 +27,12 @@ function LogActivityContent() {
   const t = useTranslations("common");
 
 
-  const [geo, setGeo] = useState({ state: t("detecting"), district: t("detecting"), village: "" });
+  const [geo, setGeo] = useState({
+    state: "",
+    district: "",
+    village: ""
+  });
+  
 
   const [location, setLocation] = useState({ lat: null, lng: null });
 
@@ -102,6 +107,14 @@ function LogActivityContent() {
   async function handleSubmit() {
     if (isSubmitting) return;
     setIsSubmitting(true);
+    if (
+      !location ||
+      typeof location.lat !== "number" ||
+      typeof location.lng !== "number"
+    ) {
+      alert(t("locationNotReady"));
+      return;
+    }
     try {
         const formData = new FormData();
         formData.append("type", type);
@@ -309,7 +322,7 @@ function LogActivityContent() {
 
         <button
           onClick={handleSubmit}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !location.lat || !location.lng}
           className={`w-full py-5 rounded-[2rem] font-black flex items-center justify-center gap-3 shadow-xl transition-all active:scale-95 ${
             isSubmitting ? 'bg-slate-700 text-slate-300' : 'bg-slate-900 text-white'
           }`}
