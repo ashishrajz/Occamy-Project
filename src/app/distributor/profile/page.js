@@ -22,6 +22,7 @@ export default function DistributorProfile() {
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [user, setUser] = useState(null);
   const bottomRef = useRef(null);
 
   const router = useRouter();
@@ -35,6 +36,40 @@ export default function DistributorProfile() {
     });
 
     router.push("/auth/login");
+  }
+
+  async function uploadPhoto(file) {
+    if (!file) return;
+  
+    try {
+      setUploading(true);
+  
+      const formData = new FormData();
+      formData.append("photo", file);
+  
+      const res = await fetch("/api/distributor/profile/avatar", {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
+  
+      if (!res.ok) {
+        throw new Error("Upload failed");
+      }
+  
+      const data = await res.json();
+  
+      // update avatar immediately in UI
+      setUser(prev => ({
+        ...prev,
+        avatar: data.avatar,
+      }));
+    } catch (err) {
+      console.error(err);
+      alert("Failed to upload profile photo");
+    } finally {
+      setUploading(false);
+    }
   }
 
   useEffect(() => {
