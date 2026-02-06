@@ -1,9 +1,7 @@
-// src/app/api/auth/login/route.js
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { signToken } from "@/lib/jwt";
 import User from "@/lib/models/User";
-
 
 export async function POST(req) {
   try {
@@ -19,9 +17,8 @@ export async function POST(req) {
       );
     }
 
-    // Simple identifier logic
+    // Identify user
     const query = phone ? { phone } : { email };
-
     let user = await User.findOne(query);
 
     if (!user) {
@@ -35,7 +32,7 @@ export async function POST(req) {
       });
     }
 
-    // Role mismatch protection
+    // Role protection
     if (user.role !== role) {
       return NextResponse.json(
         { error: "Role mismatch" },
@@ -56,16 +53,21 @@ export async function POST(req) {
         language: user.language,
       },
     });
-    
+
+    // ✅ AUTH TOKEN COOKIE
     response.cookies.set("token", token, {
       httpOnly: true,
       sameSite: "lax",
       path: "/",
     });
-    
-    return response;
-    
 
+    // ✅ LANGUAGE COOKIE (next-intl reads this)
+    response.cookies.set("NEXT_LOCALE", user.language || "en", {
+      sameSite: "lax",
+      path: "/",
+    });
+
+    return response;
   } catch (error) {
     console.error(error);
     return NextResponse.json(

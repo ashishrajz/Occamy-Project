@@ -1,0 +1,178 @@
+{
+    "common": {
+      "startDay": "Start Day",
+  "seeYouTomorrow": "See you tomorrow!",
+  "readyToStart": "Ready to start?",
+
+  "loading": "Loading...",
+  "locating": "Locating...",
+  "unknownArea": "Unknown Area",
+  "locationBypass": "Location bypass",
+
+  "fieldWork": "Field Work",
+  "shiftStarted": "Shift Started",
+  "timeActive": "Time Active",
+
+  "markCheckpoint": "Mark Checkpoint",
+  "finishShift": "Finish Shift",
+
+  "meeting": "Meeting",
+  "client": "Client",
+
+  "sample": "Sample",
+  "units": "Units",
+
+  "sale": "Sale",
+  "invoice": "Invoice",
+
+  "gpsPing": "GPS Ping",
+  "sync": "Sync",
+
+  "recentActivity": "Recent Activity",
+  "logs": "Logs",
+  "logsAppearHere": "Logs appear here",
+
+  "gpsSync": "GPS Sync",
+      "endDay": "End Day",
+      "todayLogs": "Today's Logs",
+      "activityDetails": "Activity Details",
+  "primaryContact": "Primary Contact",
+  "personGroupName": "Person / Group Name",
+  "phone": "Phone",
+  "farmer": "Farmer",
+  "retailer": "Retailer",
+  "agent": "Agent",
+
+  "potentials": "Potential",
+  "emerging": "Emerging",
+  "growth": "Growth",
+  "high": "High",
+  "enterprise": "Enterprise",
+
+  "saleRecord": "Sale Record",
+  "customerName": "Customer Name",
+  "selectProduct": "Select Product",
+  "quantity": "Quantity",
+
+  "photosProof": "Photos & Proof",
+  "add": "Add",
+
+  "additionalInfo": "Additional Info",
+  "notes": "Notes...",
+  "odometer": "Odometer",
+
+  "saving": "Saving...",
+  "saveProceed": "Save & Proceed",
+
+  "oneOnOne": "One on One",
+  "group": "Group",
+
+  "meeting": "Meeting",
+  "sale": "Sale",
+
+  "unknownActivity": "Unknown Activity",
+  "potential": {
+    "emerging": "Emerging",
+    "growth": "Growth",
+    "high": "High",
+    "enterprise": "Enterprise"
+    
+  },
+ "actions": {
+    "logMeeting": "Log Meeting",
+    "logSale": "Log Sale",
+    "logSample": "Log Sample",
+    "logActivity": "Log Activity"
+  },
+"finalReport": "Final Report Generated",
+    "daySummary": "Day Summary.",
+    "summaryDescription": "Performance analysis and field verification for today's distribution cycle.",
+    "exportCsv": "Export Numbers (CSV)",
+
+    "meetings": "Meetings",
+    "samples": "Samples",
+    "totalSales": "Total Sales",
+    "b2cOrders": "B2C Orders",
+    "b2bLeads": "B2B Leads",
+    "distance": "Distance",
+
+    "activityTimeline": "Activity Timeline",
+    "verifiedLogs": "Verified Logs",
+    "routeVerification": "Route Verification",
+    "viewDetails": "View Details",
+
+    "recordEntry": "Record Entry",
+    "time": "Time",
+    "date": "Date",
+    "dataIntelligence": "Data Intelligence",
+
+    "clientName": "Client Name",
+    "category": "Category",
+    "intent": "Intent",
+    "product": "Product",
+    "quantity": "Quantity",
+    "paymentMode": "Payment Mode",
+    "fieldNotes": "Field Notes",
+
+    "closePanel": "Close Panel",
+  "authenticating": "Authenticating...",
+    "portal": "Distributor Portal",
+    "account": "Account.",
+    "personalInfo": "Personal Information",
+
+    "performanceOverview": "Performance Overview",
+    "calculatingMetrics": "Calculating Metrics...",
+
+    "attendanceTracking": "Attendance Tracking",
+    "attendanceHint": "Tap any day in the calendar to audit detailed field activity logs.",
+
+    "financialInsights": "Financial Insights",
+
+    "signOut": "Sign Out Account",
+  "loading": "Loading Intelligence...",
+    "title": "Day Summary",
+    "noRouteData": "No Route Data",
+
+    "meetings": "Meetings",
+    "samples": "Samples",
+    "sales": "Sales",
+    "totalLogs": "Total Logs",
+
+    "timeline": "Timeline",
+    "entries": "{count} Entries",
+    "noActivity": "No activity recorded for this date",
+
+    "details": "Details",
+    "activity": "Activity",
+  "verifiedSpot": "Verified Spot",
+
+    "loggedOn": "Logged On",
+    "timestamp": "Timestamp",
+
+    "meetingIntelligence": "Meeting Intelligence",
+    "sampleDistribution": "Sample Distribution",
+    "transactionDetails": "Transaction Details",
+    "fieldNotes": "Field Notes",
+    "visualEvidence": "Visual Evidence",
+
+    "primaryContact": "Primary Contact",
+    "category": "Category",
+    "village": "Village",
+    "notSpecified": "Not Specified",
+    "businessPotential": "Business Potential",
+
+    "productName": "Product Name",
+    "quantityIssued": "Quantity Issued",
+    "purpose": "Purpose",
+
+    "customer": "Customer",
+    "mode": "Mode",
+    "productId": "Product ID",
+    "volume": "Volume",
+    "repeatOrder": "Repeat Order",
+    "followUpSale": "Follow-up Sale",
+    "totalRevenue": "Total Revenue",
+
+    "geocodedAddress": "Geocoded Address"}
+  }
+  

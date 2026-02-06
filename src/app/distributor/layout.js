@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Navbar from "@/components/navbar/page";
+import MobileNavbar from "@/components/mobilenavbar/page";
 
 export default function DistributorLayout({ children }) {
   const router = useRouter();
@@ -15,36 +17,18 @@ export default function DistributorLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      
-      {/* Top Bar */}
-      <header className="bg-white shadow px-4 py-3 flex items-center justify-between">
-        <h1 className="text-lg font-semibold text-green-700">
-          Distributor Panel
-        </h1>
+    <div className="flex flex-col">
 
-        <button
-          onClick={handleLogout}
-          className="text-sm text-red-600 font-medium"
-        >
-          Logout
-        </button>
-      </header>
 
       {/* Main Content */}
       <main className="flex-1 p-4">
-        {children}
+        <Navbar/>
+        {children}  
+        <MobileNavbar/>
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="bg-white border-t flex justify-around py-2 text-sm">
-        <button onClick={() => router.push("/distributor")}>
-          Home
-        </button>
-        <button onClick={() => router.push("/distributor/log-activity")}>
-          Log Activity
-        </button>
-      </nav>
+      
     </div>
   );
 }

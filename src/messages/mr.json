@@ -1,0 +1,179 @@
+{
+    "common": {
+      "startDay": "दिवस सुरू करा",
+  "seeYouTomorrow": "उद्या भेटूया!",
+  "readyToStart": "सुरू करण्यास तयार आहात?",
+
+  "loading": "लोड होत आहे...",
+  "locating": "स्थान शोधत आहे...",
+  "unknownArea": "अज्ञात परिसर",
+  "locationBypass": "स्थान उपलब्ध नाही",
+
+  "fieldWork": "फील्ड काम",
+  "shiftStarted": "शिफ्ट सुरू झाली",
+  "timeActive": "सक्रिय वेळ",
+
+  "markCheckpoint": "चेकपॉइंट नोंदवा",
+  "finishShift": "शिफ्ट समाप्त करा",
+
+  "meeting": "भेट",
+  "client": "ग्राहक",
+
+  "sample": "नमुना",
+  "units": "एकके",
+
+  "sale": "विक्री",
+  "invoice": "बीजक",
+
+  "gpsPing": "जीपीएस पिंग",
+  "sync": "सिंक",
+
+  "recentActivity": "अलीकडील क्रियाकलाप",
+  "logs": "नोंदी",
+  "logsAppearHere": "येथे नोंदी दिसतील",
+
+  "gpsSync": "जीपीएस सिंक",
+      "endDay": "दिवस समाप्त करा",
+      "todayLogs": "आजच्या नोंदी",
+      "activityDetails": "क्रियाकलाप तपशील",
+  "primaryContact": "मुख्य संपर्क",
+  "personGroupName": "व्यक्ती / गट नाव",
+  "phone": "फोन",
+  "farmer": "शेतकरी",
+  "retailer": "विक्रेता",
+  "agent": "एजंट",
+
+  "potentials": "संभाव्यता",
+  "emerging": "उदयोन्मुख",
+  "growth": "वाढ",
+  "high": "उच्च",
+  "enterprise": "व्यावसायिक",
+
+  "saleRecord": "विक्री नोंद",
+  "customerName": "ग्राहकाचे नाव",
+  "selectProduct": "उत्पादन निवडा",
+  "quantity": "प्रमाण",
+
+  "photosProof": "फोटो आणि पुरावा",
+  "add": "जोडा",
+
+  "additionalInfo": "अतिरिक्त माहिती",
+  "notes": "नोंदी...",
+  "odometer": "ओडोमीटर",
+
+  "saving": "संचयित करत आहे...",
+  "saveProceed": "साठवा आणि पुढे जा",
+
+  "oneOnOne": "एक ते एक",
+  "group": "गट",
+
+  "meeting": "भेट",
+  "sale": "विक्री",
+
+  "unknownActivity": "अज्ञात क्रियाकलाप",
+  "potential": {
+    "emerging": "प्रारंभिक",
+    "growth": "वाढीचा",
+    "high": "उच्च",
+    "enterprise": "व्यावसायिक"
+    
+  },
+  "actions": {
+    "logMeeting": "मीटिंग नोंदवा",
+    "logSale": "विक्री नोंदवा",
+    "logSample": "नमुना नोंदवा",
+    "logActivity": "क्रिया नोंदवा"
+  },
+  "finalReport": "अंतिम अहवाल तयार",
+    "daySummary": "दिवसाचा आढावा",
+    "summaryDescription": "आजच्या फील्ड कामगिरीचे विश्लेषण आणि पडताळणी.",
+    "exportCsv": "संख्या निर्यात करा (CSV)",
+
+    "meetings": "भेटी",
+    "samples": "नमुने",
+    "totalSales": "एकूण विक्री",
+    "b2cOrders": "B2C ऑर्डर",
+    "b2bLeads": "B2B लीड्स",
+    "distance": "अंतर",
+
+    "activityTimeline": "क्रियाकलाप वेळापत्रक",
+    "verifiedLogs": "सत्यापित नोंदी",
+    "routeVerification": "मार्ग पडताळणी",
+    "viewDetails": "तपशील पहा",
+
+    "recordEntry": "रेकॉर्ड नोंद",
+    "time": "वेळ",
+    "date": "तारीख",
+    "dataIntelligence": "डेटा विश्लेषण",
+
+    "clientName": "ग्राहकाचे नाव",
+    "category": "वर्ग",
+    "intent": "उद्देश",
+    "product": "उत्पादन",
+    "quantity": "प्रमाण",
+    "paymentMode": "पेमेंट पद्धत",
+    "fieldNotes": "फील्ड नोट्स",
+
+    "closePanel": "पॅनल बंद करा",
+    "authenticating": "प्रमाणीकरण सुरू आहे...",
+    "portal": "डिस्ट्रिब्युटर पोर्टल",
+    "account": "खाते",
+    "personalInfo": "वैयक्तिक माहिती",
+
+    "performanceOverview": "कामगिरीचा आढावा",
+    "calculatingMetrics": "मेट्रिक्स मोजले जात आहेत...",
+
+    "attendanceTracking": "हजेरी ट्रॅकिंग",
+    "attendanceHint": "कोणत्याही दिवशी टॅप करून फील्ड क्रियाकलाप पाहा.",
+
+    "financialInsights": "आर्थिक माहिती",
+
+    "signOut": "खाते बंद करा",
+    "loading": "माहिती लोड होत आहे...",
+    "title": "दिवसाचा सारांश",
+    "noRouteData": "मार्ग माहिती उपलब्ध नाही",
+
+    "meetings": "बैठका",
+    "samples": "नमुने",
+    "sales": "विक्री",
+    "totalLogs": "एकूण नोंदी",
+
+    "timeline": "कालरेषा",
+    "entries": "{count} नोंदी",
+    "noActivity": "या दिवशी कोणतीही नोंद नाही",
+
+    "details": "तपशील",
+    "activity": "क्रियाकलाप",
+    "verifiedSpot": "तपासलेले स्थान",
+
+    "loggedOn": "नोंद केले",
+    "timestamp": "वेळ",
+
+    "meetingIntelligence": "बैठक माहिती",
+    "sampleDistribution": "नमुना वितरण",
+    "transactionDetails": "व्यवहार तपशील",
+    "fieldNotes": "फील्ड नोंदी",
+    "visualEvidence": "दृश्य पुरावा",
+
+    "primaryContact": "मुख्य संपर्क",
+    "category": "श्रेणी",
+    "village": "गाव",
+    "notSpecified": "निर्दिष्ट नाही",
+    "businessPotential": "व्यावसायिक क्षमता",
+
+    "productName": "उत्पादन नाव",
+    "quantityIssued": "वाटप केलेली मात्रा",
+    "purpose": "उद्देश",
+
+    "customer": "ग्राहक",
+    "mode": "प्रकार",
+    "productId": "उत्पादन आयडी",
+    "volume": "प्रमाण",
+    "repeatOrder": "पुन्हा ऑर्डर",
+    "followUpSale": "फॉलो-अप विक्री",
+    "totalRevenue": "एकूण उत्पन्न",
+
+    "geocodedAddress": "जिओकोडेड पत्ता"
+    }
+  }
+  
