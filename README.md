@@ -1,16 +1,31 @@
-Occamy – Field Force Intelligence Platform
+🧭 Occamy
+Field Force Intelligence & Analytics Platform
 
-Occamy is a field activity tracking and analytics platform designed for agri-distribution and rural sales operations.
-It enables distributors to log real-world field activities (meetings, samples, sales, GPS pings) with location proof, while providing admins with data-driven dashboards, CSV exports, and AI-powered summaries.
+Occamy is a field activity tracking and analytics platform designed for agri-distribution and rural sales teams.
+It enables distributors to log real-world field activities with location proof, while giving admins powerful dashboards, exports, and AI-driven insights.
 
-This project is built to demonstrate production-grade system design, not just UI.
+This project focuses on production realism, not just UI polish.
 
-🚀 Core Features
-👨‍🌾 Distributor App
+✨ Key Highlights
 
-Start / end daily field shifts
+📍 GPS-verified field activity logging
 
-Live GPS tracking with reverse geocoding
+🧑‍🌾 Distributor-first mobile UX
+
+📊 Admin dashboards with filters & exports
+
+🤖 AI-powered performance summaries
+
+🌐 Multi-language support (EN / HI / MR)
+
+🔐 Role-based access control
+
+🧑‍🌾 Distributor Application
+What Distributors Can Do
+
+Start and end daily field shifts
+
+Track live GPS location
 
 Log field activities:
 
@@ -22,19 +37,30 @@ Sample distribution
 
 Sales
 
-Location checkpoints
+GPS checkpoints
 
-Photo uploads as activity proof
+Upload photos as proof of activity
 
-Automatic day closure if previous day was not ended
+Automatically close unfinished previous days
 
-Offline-safe, mobile-first UX
+Use the app in low-connectivity environments
 
-Multilingual UI (English, Hindi, Marathi)
+Work in their preferred language
+
+UX Design Goals
+
+Mobile-first
+
+Minimal typing
+
+Large touch targets
+
+Works reliably on low-end devices
 
 🧑‍💼 Admin Dashboard
+Admin Capabilities
 
-View aggregated distributor activity
+View organization-wide activity data
 
 Filter by:
 
@@ -44,39 +70,56 @@ State
 
 District
 
+Visualize:
+
+Meetings, samples, sales
+
+B2B vs B2C split
+
+Product performance
+
+Distributor efficiency
+
 Download filtered data as CSV
 
-Generate AI summaries of field performance
+Generate AI-based summaries for quick insights
 
-Real-time operational intelligence
+🧠 Core Domain Models
+1. User
 
-🧠 Domain Model Overview
-User Roles
-Role	Description
-ADMIN	Full access to dashboards, analytics & exports
-DISTRIBUTOR	Logs field activities
-FARMER	Contact entity (no login)
-Distributor Day
+Roles supported:
+
+ADMIN – full access
+
+DISTRIBUTOR – field operations
+
+FARMER – contact entity (no login)
+
+Includes:
+
+Language preference
+
+Region (state, district)
+
+2. DistributorDay
 
 Represents one working day for a distributor.
 
 Tracks:
 
-Start / end time
+Start time & location
 
-Start / end location
+End time & location
 
 Total distance travelled
 
-Prevents duplicate days
+Prevents duplicate active days
 
 Auto-closes previous unfinished days
 
-Activity (Core Entity)
+3. Activity (Single Source of Truth)
 
-Single source of truth for all field actions.
-
-Supported types:
+Supported activity types:
 
 MEETING_ONE_ON_ONE
 
@@ -88,56 +131,50 @@ SALE
 
 LOCATION_PING
 
-Each activity includes:
+Each activity stores:
+
+Distributor & day reference
 
 GPS coordinates
 
-Reverse-geocoded location
+Reverse-geocoded location (state/district/village)
 
-Optional photos
+Human-readable address
+
+Photos (optional)
 
 Notes
 
-Contextual metadata based on activity type
+Type-specific metadata (meeting / sale / sample)
 
-🧩 Tech Stack
-Frontend
+🌍 Location & Geo Handling
+How Location Is Captured
 
-Next.js (App Router)
+Frontend captures raw GPS (lat, lng)
 
-React
+Backend performs reverse geocoding
 
-Tailwind CSS
+Structured geo is stored:
 
-next-intl for i18n
+state
 
-Lucide Icons
+district
 
-Mobile-first design
+village
 
-Backend
+Human-readable address stored separately
 
-Next.js API Routes
+Why Backend Reverse-Geocoding?
 
-MongoDB + Mongoose
+Prevents client spoofing
 
-JWT authentication
+Ensures consistent data format
 
-Role-based access control
+Keeps DB independent of UI language
 
-Cloudinary for image uploads
+Guarantees map compatibility
 
-External reverse-geocoding API
-
-AI & Analytics
-
-AI summaries via free-tier LLM APIs
-
-Fallback-safe prompt construction
-
-CSV generation server-side
-
-🌍 Internationalization (i18n)
+🌐 Internationalization (i18n)
 
 Supported languages:
 
@@ -149,158 +186,178 @@ Marathi (mr)
 
 Design principles:
 
-All user-facing text comes from JSON
+All UI text comes from JSON files
 
-Enum values stored in DB remain language-agnostic
+Database stores language-neutral enums
 
-UI translations mapped via keys (e.g. meetingKind.ONE_ON_ONE)
+Translation keys map enums → readable labels
 
-🔐 Authentication & Authorization
-
-Cookie-based JWT auth
-
-Secure HTTP-only cookies
-
-Middleware role checks
-
-Admin-only routes enforced server-side
-
-Distributor routes isolated
-
-📦 Data Seeding
-
-A dedicated scripts/seed folder is used to generate realistic demo data:
-
-6+ distributors
-
-Multiple working days
-
-Dense activity logs across states/districts
-
-Mixed activity types
-
-Realistic geolocation spread
-
-This allows dashboards, maps, and analytics to appear production-real, not empty.
-
-🗺️ Location Handling (Important)
-How location works
-
-Frontend captures:
-
-lat, lng
-
-Backend:
-
-Performs reverse geocoding
-
-Stores structured geo (state, district, village)
-
-Stores human-readable address separately
-
-Why backend reverse-geocoding?
-
-Prevents client spoofing
-
-Ensures consistent location format
-
-Avoids UI language affecting stored data
-
-📊 CSV Export
-
-Server-side generation
-
-Respects applied filters
-
-Admin-only
-
-Optimized for Excel / Sheets import
+Safe fallbacks for missing translations
 
 🤖 AI Analytics
 
-Admins can generate summaries such as:
+Admins can generate AI summaries such as:
 
 Distributor productivity trends
 
-Sales intensity by region
-
 High-potential meetings
+
+Sales intensity by region
 
 Operational gaps
 
-AI is non-blocking:
+AI Design Philosophy
 
-If AI fails → app still works
+AI is assistive, not authoritative
 
-No hard dependency on paid APIs
+System works even if AI fails
+
+Uses free-tier APIs where possible
+
+No hard dependency on paid services
+
+📦 CSV Export
+
+Server-side generation
+
+Respects all applied filters
+
+Admin-only access
+
+Excel / Google Sheets friendly
+
+Designed for reporting & audits
+
+🛠 Tech Stack
+Frontend
+
+Next.js (App Router)
+
+React
+
+Tailwind CSS
+
+next-intl (i18n)
+
+Lucide Icons
+
+Backend
+
+Next.js API Routes
+
+MongoDB + Mongoose
+
+JWT authentication
+
+Role-based authorization
+
+Integrations
+
+Cloudinary (image uploads)
+
+Reverse-geocoding API
+
+Free-tier LLM APIs
+
+🌱 Data Seeding (Demo-Ready)
+
+A dedicated seeding system generates realistic demo data:
+
+6+ distributors
+
+Multiple working days per distributor
+
+Dense activity logs
+
+Multiple states & districts
+
+Mixed activity types
+
+Purpose:
+
+Dashboards look realistic
+
+Maps render correctly
+
+AI summaries have meaningful input
+
+🔐 Authentication & Security
+
+Cookie-based JWT auth
+
+HTTP-only secure cookies
+
+Server-side role enforcement
+
+Admin-only protected routes
+
+Distributor routes fully isolated
 
 ⚖️ Assumptions & Trade-offs
 1. Accuracy vs Cost
 
 Used free reverse-geocoding APIs
 
-Trade-off: occasional naming inconsistency
+Trade-off: occasional naming inconsistencies
 
-Mitigation: raw coordinates always stored
+Mitigation: raw GPS always stored
 
-2. No real-time map streaming
+2. No Real-Time Live Tracking
 
-Location stored per activity, not live tracking
+Location stored per activity, not streamed
 
-Chosen to reduce battery drain and backend load
+Reduces battery drain & backend load
 
-3. AI summaries are advisory
+Better suited for rural field conditions
 
-Not used for decision automation
+3. AI Is Advisory Only
 
-Avoids over-reliance on LLM output
+No automation based on AI output
 
-4. OTP login skipped in demo
+Prevents incorrect business decisions
 
-SMS providers impose verification/paywalls
+Keeps system deterministic
 
-JWT login retained for stability
+4. OTP Login Not Enforced
 
-5. Enums over dynamic configs
+SMS providers require verification/payments
 
-Product & activity enums hard-coded
+JWT login retained for reliability
 
-Trade-off: less flexibility
+OTP planned for future production use
 
-Benefit: data integrity & simpler analytics
+5. Enums Over Dynamic Config
 
-🧪 Production Readiness Notes
+Products & activity types are enums
 
-Defensive backend validation
+Trade-off: less runtime flexibility
 
-Server-side geo verification
+Benefit: strong data integrity & simpler analytics
 
-Graceful failures
-
-Mobile network tolerant UX
-
-Scalable schema design
-
-📌 Future Improvements
-
-Real-time map playback
+🚀 Future Improvements
 
 Offline queue sync
 
+Route replay on maps
+
 Supervisor roles
 
-OTP-based auth with verified SMS provider
+Verified OTP login
 
-Advanced AI insights with historical comparison
+Advanced AI trend comparisons
 
-👨‍💻 Author Notes
+Exportable PDF reports
 
-This project was intentionally built to reflect:
+🧠 Author Notes
 
-Real-world constraints
+This project was intentionally designed to demonstrate:
 
-Field conditions
+Real-world backend correctness
 
-Backend-first correctness
+Field constraints (GPS, network, devices)
 
-Resume & interview readiness
+Clean schema design
+
+Production-oriented thinking
+
+It is resume-ready, interview-ready, and demo-ready.
