@@ -269,7 +269,7 @@ export default function DistributorDashboard() {
 
             <div className="grid grid-cols-2 gap-3">
               <CommandCard label={t("meeting")}
-  sub={t("client")} icon={<Users size={20} />} color="bg-indigo-600" onClick={() => router.push("/distributor/log-activity?type=MEETING_ONE_ON_ONE")} />
+  sub={t("client")} icon={<Users size={20} />} color="bg-indigo-600" onClick={() => router.push("/distributor/log-activity?type=MEETING")} />
               <CommandCard label={t("sampleDistribution")}
   sub={t("sync")} icon={<Package size={20} />} color="bg-orange-500" onClick={() => router.push("/distributor/log-activity?type=SAMPLE_DISTRIBUTION")} />
               <CommandCard label={t("sale")}
