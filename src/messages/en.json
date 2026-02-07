@@ -270,6 +270,8 @@
   "low": "Low",
   "medium": "Medium",
   "high": "High",
-  "veryHigh": "Very High"}
+  "veryHigh": "Very High",
+"starting": "Starting...",
+  "ending": "Ending..."}
   }
   
