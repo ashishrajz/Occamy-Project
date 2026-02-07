@@ -17,12 +17,7 @@ export default function DistributorDashboard() {
   const [hasEndedToday, setHasEndedToday] = useState(false);
   const [activities, setActivities] = useState([]);
   const t = useTranslations("common");
-  const BUSINESS_POTENTIAL_LEVELS = [
-    { value: "LOW", label: t("low") },
-    { value: "MEDIUM", label: t("medium") },
-    { value: "HIGH", label: t("high") },
-    { value: "VERY_HIGH", label: t("veryHigh") },
-  ];
+  
   
 
   const [elapsedTime, setElapsedTime] = useState("00:00:00");
