@@ -141,10 +141,11 @@ Generated,${new Date().toLocaleDateString()}`;
             <div className="relative space-y-6 before:absolute before:inset-0 before:ml-6 before:-translate-x-px before:h-full before:w-0.5 before:bg-slate-100">
               {summary.activities.map((act, idx) => (
                 <ActivityItem
-                  key={act._id || idx}
-                  act={act}
-                  onViewDetails={() => setSelectedActivity(act)}
-                />
+  key={act._id || idx}
+  act={act}
+  t={t}
+  onViewDetails={() => setSelectedActivity(act)}
+/>
               ))}
             </div>
           </div>
@@ -167,9 +168,10 @@ Generated,${new Date().toLocaleDateString()}`;
       </main>
 
       <DetailModal
-        activity={selectedActivity}
-        onClose={() => setSelectedActivity(null)}
-      />
+  activity={selectedActivity}
+  t={t}
+  onClose={() => setSelectedActivity(null)}
+/>
     </div>
   );
 }
@@ -207,7 +209,7 @@ function StatCard({ label, value, icon, theme }) {
   );
 }
 
-function ActivityItem({ act, onViewDetails }) {
+function ActivityItem({ act, onViewDetails ,t}) {
   const isMeeting = !!act.meeting;
   const isSample = !!act.sample;
   const isSale = !!act.sale;
@@ -262,7 +264,7 @@ function ActivityItem({ act, onViewDetails }) {
   );
 }
 
-function DetailModal({ activity, onClose }) {
+function DetailModal({ activity, onClose,t }) {
   if (!activity) return null;
 
   return (
