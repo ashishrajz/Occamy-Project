@@ -27,10 +27,10 @@ function LogActivityContent() {
   const t = useTranslations("common");
 
   const BUSINESS_POTENTIAL_LEVELS = [
-    { value: "LOW", label: t("low") },
-    { value: "MEDIUM", label: t("medium") },
-    { value: "HIGH", label: t("high") },
-    { value: "VERY_HIGH", label: t("veryHigh") },
+    { value: "LOW", label: "low"},
+    { value: "MEDIUM", label:"medium"},
+    { value: "HIGH", label: "high"},
+    { value: "VERY_HIGH", label: "veryHigh"},
   ];
   
 
