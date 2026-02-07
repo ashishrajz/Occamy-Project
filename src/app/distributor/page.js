@@ -6,7 +6,7 @@ import {
   Sprout, MapPin, Power, Users, Package,
   ShoppingBag, Navigation, CheckCircle2,
   ChevronRight, Clock, CalendarDays, UserCircle,
-  TrendingUp, Wifi, Bell, Flag
+  TrendingUp, Wifi, Bell, Flag,Loader2
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -17,7 +17,9 @@ export default function DistributorDashboard() {
   const [hasEndedToday, setHasEndedToday] = useState(false);
   const [activities, setActivities] = useState([]);
   const t = useTranslations("common");
-  
+   const [startingDay, setStartingDay] = useState(false);
+const [endingDay, setEndingDay] = useState(false);
+
   
 
   const [elapsedTime, setElapsedTime] = useState("00:00:00");
@@ -100,28 +102,67 @@ export default function DistributorDashboard() {
   }, []);
 
   async function startDay() {
-    navigator.geolocation.getCurrentPosition(async pos => {
-      await fetch("/api/distributor/start-day", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ location: { lat: pos.coords.latitude, lng: pos.coords.longitude } }),
-      });
-      window.location.reload();
-    }, (err) => alert("Please enable GPS to start work"));
+    setStartingDay(true);
+  
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          await fetch("/api/distributor/start-day", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              location: {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude,
+              },
+            }),
+          });
+  
+          window.location.reload();
+        } catch (e) {
+          alert("Failed to start day");
+          setStartingDay(false);
+        }
+      },
+      () => {
+        alert("Please enable GPS to start work");
+        setStartingDay(false);
+      }
+    );
   }
-
+  
   async function endDay() {
-    navigator.geolocation.getCurrentPosition(async pos => {
-      await fetch("/api/distributor/end-day", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ location: { lat: pos.coords.latitude, lng: pos.coords.longitude } }),
-      });
-      router.replace("/distributor/end-day-summary");
-    }, (err) => alert("Please enable GPS to end work"));
+    setEndingDay(true);
+  
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          await fetch("/api/distributor/end-day", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              location: {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude,
+              },
+            }),
+          });
+  
+          router.replace("/distributor/end-day-summary");
+        } catch (e) {
+          alert("Failed to end day");
+          setEndingDay(false);
+        }
+      },
+      () => {
+        alert("Please enable GPS to end work");
+        setEndingDay(false);
+      }
+    );
   }
+  
 
   if (loading) return (
     <div className="min-h-screen bg-[#F8FAFB] flex flex-col items-center px-4 pt-6 space-y-6">
@@ -184,12 +225,22 @@ export default function DistributorDashboard() {
             </div>
 
             {!hasEndedToday ? (
-              <button 
-                onClick={startDay} 
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-5 rounded-2xl shadow-xl shadow-emerald-100 active:scale-95 transition-all text-sm uppercase tracking-[0.15em]"
-              >
-                {t("startFieldWork")}
-              </button>
+              <button
+              onClick={startDay}
+              disabled={startingDay}
+              className={`w-full font-black py-5 rounded-2xl shadow-xl transition-all text-sm uppercase tracking-[0.15em]
+                ${startingDay ? "bg-emerald-400 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700 active:scale-95"}
+              `}
+            >
+              {startingDay ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 size={18} className="animate-spin" />
+                  {t("starting")}
+                </span>
+              ) : (
+                t("startFieldWork")
+              )}
+            </button>
             ) : (
               <div className="w-full py-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t("reportsSynced")} ✅
@@ -252,12 +303,24 @@ export default function DistributorDashboard() {
                 </div>
               </button>
 
-              <button onClick={endDay} className="group relative w-full transition-all duration-75 active:translate-y-1">
+              <button
+  onClick={endDay}
+  disabled={endingDay}
+  className="group relative w-full transition-all duration-75 active:translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
+>
                 <div className="absolute inset-0 bg-rose-800 rounded-2xl translate-y-1.5" />
                 <div className="relative flex items-center justify-center gap-3 bg-rose-600 active:bg-rose-700 text-white py-4 rounded-2xl border-b border-rose-400 active:border-b-0 transition-all">
                   <Power size={20} className="group-hover:scale-110" />
-                  <span className="text-sm font-black uppercase tracking-widest">{t("finishShift")}
-                  </span>
+                  <span className="text-sm font-black uppercase tracking-widest">
+  {endingDay ? (
+    <span className="flex items-center gap-2">
+      <Loader2 size={16} className="animate-spin" />
+      {t("ending")}
+    </span>
+  ) : (
+    t("finishShift")
+  )}
+</span>
                 </div>
               </button>
             </div>
