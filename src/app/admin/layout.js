@@ -12,7 +12,8 @@ import {
   Search,
   Menu,
   Settings,
-  X
+  X,
+  Activity
 } from "lucide-react";
 
 export default function AdminLayout({ children }) {
@@ -73,6 +74,7 @@ export default function AdminLayout({ children }) {
         <nav className="flex-1 space-y-2">
           <DesktopNavLink href="/admin" icon={<LayoutDashboard size={22} />} label="Dashboard" active={pathname === "/admin"} />
           <DesktopNavLink href="/admin/distributor" icon={<Users size={22} />} label="Distributors" active={pathname.startsWith("/admin/distributor")} />
+  <DesktopNavLink href="/admin/activity" icon={<Activity size={22} />} label="Activites" active={pathname.startsWith("/admin/activity")} />
          
         </nav>
 
@@ -121,7 +123,8 @@ export default function AdminLayout({ children }) {
         <nav className="bg-slate-900/95 backdrop-blur-2xl rounded-[2.5rem] p-2 flex items-center justify-around border border-white/10 shadow-2xl">
           <TabLink href="/admin" icon={<LayoutDashboard size={22} />} active={pathname === "/admin"} />
           <TabLink href="/admin/distributor" icon={<Users size={22} />} active={pathname.startsWith("/admin/distributor")} />
-          <button onClick={() => setIsMenuOpen(true)} className="p-4 text-white/40"><Menu size={22} /></button>
+        <TabLink href="/admin/activity" icon={<Activity size={22} />} active={pathname.startsWith("/admin/activity")} />
+          
         </nav>
       </div>
     </div>
