@@ -296,7 +296,7 @@ export default function AdminDashboard() {
           />
           <KPI
             label="Distance"
-            value={`${kpis.distance}k`}
+            value={`${kpis.distance}KM`}
             icon={<Navigation size={18} />}
             color="bg-slate-800"
           />
