@@ -1,13 +1,12 @@
-🧭 Occamy
+🧭 AgriTrack
 Field Force Intelligence & Analytics Platform
 
-Occamy is a field activity tracking and analytics platform designed for agri-distribution and rural sales teams.
+Occamy is a field activity tracking and analytics platform built for agri-distribution and rural sales teams.
+It replaces unstructured, error-prone WhatsApp workflows with GPS-verified activity logging, analytics dashboards, and AI-driven insights.
 
-It enables distributors to log real-world activities with GPS proof, while admins get dashboards, exports, and AI-driven insights.
+Distributors record real-world activities with location proof, while admins gain clear visibility, exports, and summaries for faster decision-making.
 
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-✨ KEY HIGHLIGHTS
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+✨ Key Highlights
 
 📍 GPS-verified activity logging
 
@@ -17,18 +16,57 @@ It enables distributors to log real-world activities with GPS proof, while admin
 
 🤖 AI-generated summaries
 
-🌐 Multi-language support (EN / HI / MR)
+🌐 Multi-language support (English / Hindi / Marathi)
 
 🔐 Role-based access control
 
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-🧑‍🌾 DISTRIBUTOR APPLICATION
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+📱 Fully responsive (mobile & desktop)
+
+📱 Application Overview
+
+Occamy is a fully responsive web application, optimized for low-end Android devices and rural connectivity conditions.
+It is designed to be simple, fast, and usable by low-tech users such as farmers and field distributors.
+
+Authentication & Roles
+
+Secure login and registration using JWT authentication, with three roles:
+
+ADMIN
+
+DISTRIBUTOR
+
+FARMER
+
+Each role has access only to relevant features.
+
+🌐 Language Support (i18n)
+
+Users can select their preferred language during login/registration via the navbar.
+
+Supported languages:
+
+English (en)
+
+Hindi (hi)
+
+Marathi (mr)
+
+Design Principles
+
+UI text loaded from JSON files
+
+Database stores enums, not translated strings
+
+Safe fallbacks for missing keys
+
+Language-agnostic backend
+
+🧑‍🌾 Distributor Application
 What Distributors Can Do
 
-Start / end daily field shifts
+Start and end daily field shifts
 
-Track live GPS coordinates
+Track live GPS-verified locations
 
 Log activities:
 
@@ -46,21 +84,57 @@ Upload photos as proof
 
 Auto-close unfinished previous days
 
-Work in low-connectivity environments
+Work reliably in low-connectivity environments
 
-UX Design Goals
+Distributor Workflow
+1. Start Day
 
-Mobile-first
+Distributor clicks “Start Day”
 
-Minimal typing
+Attendance is marked
 
-Large touch targets
+Live GPS location is captured
 
-Reliable on low-end Android devices
+Exact location (road, locality, district) is stored and viewable later on the map
 
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-🧑‍💼 ADMIN DASHBOARD
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+2. Daily Reporting
+
+Log reports for:
+
+Meetings
+
+Sales
+
+Samples
+
+Product data (sample set) is sourced from the official Occamy website
+
+Designed to be more structured and efficient than WhatsApp-based reporting
+
+3. Checkpoints
+
+Mark checkpoints during the day
+
+Submit survey reports and farmer feedback
+
+Location is auto-detected
+
+4. End Day & Summary
+
+Click “End Day” to finish work
+
+View detailed daily summary in Profile
+
+Calendar view:
+
+Green dates = active workdays
+
+Click a date to explore location-wise and activity-wise details
+
+🧑‍💼 Admin Dashboard
+
+The Admin Dashboard provides complete organizational visibility using numbers, charts, and AI summaries.
+
 Admin Capabilities
 
 View organization-wide metrics
@@ -83,13 +157,25 @@ Product performance
 
 Distributor efficiency
 
-Export filtered data as CSV
+Export filtered data as CSV / Excel
 
-Generate AI-based summaries
+Generate AI-based summaries to save review time
 
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-🧠 CORE DOMAIN MODELS
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+Visual dashboards significantly reduce manual workload compared to WhatsApp flows.
+
+🤖 AI Analytics
+
+Admins can generate AI-assisted summaries such as:
+
+Productivity summaries
+
+Regional performance insights
+
+Distributor behavior trends
+
+AI is advisory only — it provides insights, not automated decisions.
+
+🧠 Core Domain Models
 User
 
 Roles:
@@ -118,7 +204,9 @@ Start / end location
 
 Total distance travelled
 
-Prevents duplicate active days
+Ensures:
+
+No duplicate active days
 
 Activity (Single Source of Truth)
 
@@ -148,81 +236,55 @@ Photos & notes
 
 Type-specific metadata
 
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-🌍 LOCATION & GEO HANDLING
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🌍 Location & Geo Handling
 How Location Is Stored
 
 Frontend captures raw GPS (lat, lng)
 
-Backend performs reverse-geocoding
+Backend performs reverse geocoding
 
-Structured geo saved separately
+Structured geo and readable address stored separately
 
-Address stored independently
+Why Backend Reverse Geocoding
 
-Why Backend Reverse-Geocoding
+Prevents client-side spoofing
 
-Prevents client spoofing
-
-Consistent DB structure
+Ensures consistent DB structure
 
 Language-agnostic storage
 
 Reliable map rendering
 
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-🌐 INTERNATIONALIZATION (i18n)
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🧑‍🌾 Farmer Experience
 
-Supported languages:
+Farmers can view all products with detailed information
 
-English (en)
+Language selection available
 
-Hindi (hi)
+Product pages show:
 
-Marathi (mr)
+Sample pricing
 
-Principles:
+Dealer contact details (sourced from Occamy website)
 
-UI text only via JSON files
+Feedback & review form collects farmer insights
 
-DB stores enums, not translated text
-
-Safe fallbacks for missing keys
-
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-🤖 AI ANALYTICS
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-
-Admins can generate:
-
-Productivity summaries
-
-Regional performance insights
-
-Distributor behavior trends
-
-AI is advisory only — no automation or hard dependency.
-
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-⚖️ ASSUMPTIONS & TRADE-OFFS
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+⚖️ Assumptions & Trade-Offs
 Accuracy vs Cost
 
-Free reverse-geocoding APIs
+Free reverse-geocoding APIs used
 
 Raw GPS always stored as fallback
 
 No Live Tracking
 
-Activity-based location capture
+Activity-based GPS capture
 
-Saves battery & backend load
+Saves battery and backend cost
 
 AI Is Non-Authoritative
 
-Insights only, no decisions
+Insight only, no automation
 
 OTP Login Deferred
 
@@ -234,11 +296,9 @@ Enums Over Dynamic Config
 
 Strong data integrity
 
-Simpler analytics & queries
+Simpler analytics and queries
 
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-🚀 FUTURE IMPROVEMENTS
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
+🚀 Future Improvements
 
 Offline sync queue
 
@@ -246,24 +306,8 @@ Route replay on maps
 
 Supervisor roles
 
-Verified OTP login
+OTP-based login
 
 Advanced AI comparisons
 
 PDF exports
-
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-🧠 AUTHOR NOTES
-⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛
-
-This project demonstrates:
-
-Production-grade backend design
-
-Field-ready GPS handling
-
-Clean schema modeling
-
-Practical trade-offs
-
-Resume-ready. Demo-ready. Interview-ready.
